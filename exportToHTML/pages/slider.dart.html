@@ -1,0 +1,135 @@
+<html>
+<head>
+<title>slider.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #080808;}
+.s1 { color: #067d17;}
+.s2 { color: #0033b3;}
+.s3 { color: #1750eb;}
+.s4 { color: #8c8c8c; font-style: italic;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+slider.dart</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">'package:aesthenics/services/firebase_services.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:flutter/material.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:flutter/material.dart'</span><span class="s0">;</span>
+
+
+<span class="s2">class </span><span class="s0">ProductCard1 </span><span class="s2">extends </span><span class="s0">StatelessWidget {</span>
+
+  <span class="s2">final </span><span class="s0">String productId;</span>
+  <span class="s2">final </span><span class="s0">List imageList;</span>
+
+
+  <span class="s0">ProductCard1({</span><span class="s2">this</span><span class="s0">.productId,</span><span class="s2">this</span><span class="s0">.imageList});</span>
+  <span class="s0">FirebaseServices firebaseServices = FirebaseServices();</span>
+  <span class="s0">String _selectedProductSize = </span><span class="s1">&quot;0&quot;</span><span class="s0">;</span>
+
+  <span class="s0">@override</span>
+  <span class="s0">Widget build(BuildContext context) {</span>
+    <span class="s2">var </span><span class="s0">widget;</span>
+    <span class="s2">return </span><span class="s0">Padding(</span>
+      <span class="s0">padding: EdgeInsets.only(left: </span><span class="s3">20</span><span class="s0">),</span>
+      <span class="s0">child: SizedBox(</span>
+        <span class="s0">child: GestureDetector(</span>
+         <span class="s4">/* onTap: () =&gt; Navigator.pushNamed( 
+            context, 
+            DetailsScreen.routeName, 
+            arguments: ProductDetailsArguments(product: product), 
+          ),*/</span>
+          <span class="s0">child: FutureBuilder(</span>
+        <span class="s0">future: firebaseServices.productsRef.doc(widget.productId).get(),</span>
+    <span class="s0">builder: (context, snapshot){</span>
+    <span class="s2">if</span><span class="s0">(snapshot.hasError){</span>
+    <span class="s2">return </span><span class="s0">SafeArea(</span>
+    <span class="s0">child: Scaffold(</span>
+    <span class="s0">body: Center(</span>
+    <span class="s0">child: Text(</span><span class="s1">'SomethingWentWrong'</span><span class="s0">),</span>
+    <span class="s0">),</span>
+    <span class="s0">),</span>
+    <span class="s0">);</span>
+
+
+    <span class="s0">}</span>
+    <span class="s2">if </span><span class="s0">(snapshot.connectionState == ConnectionState.done) {</span>
+    <span class="s0">Map&lt;String, dynamic&gt; documentData = snapshot.data.data();</span>
+    <span class="s0">List imageList = documentData[</span><span class="s1">'images'</span><span class="s0">];</span>
+    <span class="s0">List productSizes = documentData[</span><span class="s1">'size'</span><span class="s0">];</span>
+    <span class="s0">_selectedProductSize = productSizes[</span><span class="s3">0</span><span class="s0">];</span>
+    <span class="s0">child: Column(</span>
+    <span class="s0">crossAxisAlignment: CrossAxisAlignment.start,</span>
+    <span class="s0">children: [</span>
+    <span class="s0">AspectRatio(</span>
+    <span class="s0">aspectRatio: </span><span class="s3">1.02</span><span class="s0">,</span>
+    <span class="s0">child: Container(</span>
+    <span class="s0">padding: EdgeInsets.all(</span><span class="s3">20</span><span class="s0">),</span>
+    <span class="s0">decoration: BoxDecoration(</span>
+    <span class="s4">//       color: kSecondaryColor.withOpacity(0.1),</span>
+    <span class="s0">borderRadius: BorderRadius.circular(</span><span class="s3">15</span><span class="s0">),</span>
+    <span class="s0">),</span>
+    <span class="s0">child: Hero(</span>
+    <span class="s0">tag: productId.toString(),</span>
+    <span class="s0">child:Image.network(</span><span class="s1">&quot;</span><span class="s0">${imageList[</span><span class="s3">0</span><span class="s0">]}</span><span class="s1">&quot;</span><span class="s0">,fit: BoxFit.cover,</span>
+    <span class="s0">),</span>
+    <span class="s0">),</span>
+    <span class="s0">),</span>
+    <span class="s0">),</span>
+    <span class="s2">const </span><span class="s0">SizedBox(height: </span><span class="s3">10</span><span class="s0">),</span>
+    <span class="s0">Text(</span><span class="s1">&quot;</span><span class="s0">${documentData[</span><span class="s1">'name'</span><span class="s0">]}</span><span class="s1">&quot;</span><span class="s0">,</span>
+    <span class="s0">style: TextStyle(color: Colors.black),</span>
+    <span class="s0">maxLines: </span><span class="s3">2</span><span class="s0">,</span>
+    <span class="s0">),</span>
+    <span class="s0">Row(</span>
+    <span class="s0">mainAxisAlignment: MainAxisAlignment.spaceBetween,</span>
+    <span class="s0">children: [</span>
+    <span class="s0">Text(</span>
+    <span class="s1">&quot;</span><span class="s0">${documentData[</span><span class="s1">'price'</span><span class="s0">]}</span><span class="s1">&quot;</span><span class="s0">,</span>
+
+    <span class="s0">),</span>
+    <span class="s0">InkWell(</span>
+    <span class="s0">borderRadius: BorderRadius.circular(</span><span class="s3">50</span><span class="s0">),</span>
+    <span class="s0">onTap: () {},</span>
+    <span class="s0">child: Container(</span>
+    <span class="s0">padding: EdgeInsets.all(</span><span class="s3">8</span><span class="s0">),</span>
+    <span class="s0">height: </span><span class="s3">28</span><span class="s0">,</span>
+    <span class="s0">width: </span><span class="s3">28</span><span class="s0">,</span>
+    <span class="s4">/* decoration: BoxDecoration( 
+                          color: product.isFavourite 
+                              ? kPrimaryColor.withOpacity(0.15) 
+                              : kSecondaryColor.withOpacity(0.1), 
+                          shape: BoxShape.circle, 
+                        ),*/</span>
+    <span class="s4">/* child: SvgPicture.asset( 
+                          &quot;assets/icons/Heart Icon_2.svg&quot;, 
+                          color: product.isFavourite 
+                              ? Color(0xFFFF4848) 
+                              : Color(0xFFDBDEE4), 
+                        ),*/</span>
+    <span class="s0">),</span>
+    <span class="s0">),</span>
+    <span class="s0">],</span>
+    <span class="s0">)</span>
+    <span class="s0">],</span>
+
+
+    <span class="s0">);</span>
+    <span class="s0">}</span>
+    <span class="s0">}</span>
+    <span class="s0">)</span>
+    <span class="s0">)</span>
+    <span class="s0">)</span>
+    <span class="s0">);</span>
+
+<span class="s0">}</span>
+  <span class="s0">}</span>
+
+
+</pre>
+</body>
+</html>

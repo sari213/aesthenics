@@ -1,0 +1,212 @@
+<html>
+<head>
+<title>new.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #080808;}
+.s1 { color: #067d17;}
+.s2 { color: #0033b3;}
+.s3 { color: #1750eb;}
+.s4 { color: #8c8c8c; font-style: italic;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+new.dart</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">'package:flutter/material.dart'</span><span class="s0">;</span>
+
+<span class="s2">class </span><span class="s0">newArrive </span><span class="s2">extends </span><span class="s0">StatefulWidget {</span>
+  <span class="s0">@override</span>
+  <span class="s0">_newArriveState createState() =&gt; _newArriveState();</span>
+<span class="s0">}</span>
+
+<span class="s2">class </span><span class="s0">_newArriveState </span><span class="s2">extends </span><span class="s0">State&lt;newArrive&gt; {</span>
+  <span class="s0">@override</span>
+  <span class="s0">Widget build(BuildContext context) {</span>
+    <span class="s2">return  </span><span class="s0">Scaffold(</span>
+      <span class="s0">body: Container(</span>
+
+          <span class="s0">child: Padding(</span>
+            <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.all(</span><span class="s3">14.0</span><span class="s0">),</span>
+            <span class="s0">child: SingleChildScrollView(</span>
+
+              <span class="s0">child: Column(</span>
+                <span class="s0">children: &lt;Widget&gt;[</span>
+                  <span class="s0">SizedBox(height: </span><span class="s3">60</span><span class="s0">,),</span>
+                  <span class="s0">Text(</span><span class="s1">'#NEW ARRIVALS'</span><span class="s0">,style: TextStyle(</span>
+                      <span class="s0">fontSize: </span><span class="s3">20</span><span class="s0">,fontWeight: FontWeight.bold</span>
+                  <span class="s0">),),</span>
+                  <span class="s0">SizedBox(height: </span><span class="s3">20</span><span class="s0">,),</span>
+                  <span class="s0">Container(</span>
+                    <span class="s0">height: </span><span class="s3">700</span><span class="s0">,</span>
+                    <span class="s0">child: GridView.builder(</span>
+                        <span class="s0">gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(</span>
+                            <span class="s0">maxCrossAxisExtent: </span><span class="s3">200</span><span class="s0">,</span>
+                            <span class="s0">childAspectRatio: </span><span class="s3">2 </span><span class="s0">/ </span><span class="s3">3</span><span class="s0">,</span>
+
+                            <span class="s0">crossAxisSpacing: </span><span class="s3">20</span><span class="s0">,</span>
+                            <span class="s0">mainAxisSpacing: </span><span class="s3">20</span><span class="s0">),</span>
+                        <span class="s0">itemCount: </span><span class="s3">4</span><span class="s0">,</span>
+
+                        <span class="s0">itemBuilder: (BuildContext ctx, index) {</span>
+                          <span class="s2">return </span><span class="s0">Container(</span>
+                            <span class="s0">alignment: Alignment.bottomLeft,</span>
+                            <span class="s0">child: Stack(</span>
+                              <span class="s0">children: [</span>
+                                <span class="s0">Image.asset(</span><span class="s1">'assets/images/t-shirt-sport.jpg'</span><span class="s0">,</span>
+                                    <span class="s0">height: </span><span class="s3">220</span><span class="s0">,</span>
+                                    <span class="s0">fit:BoxFit.fill ),</span>
+                                <span class="s0">Align(</span>
+                                    <span class="s0">alignment: Alignment.bottomLeft,</span>
+                                    <span class="s0">child: Padding(</span>
+                                      <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.only(left: </span><span class="s3">8</span><span class="s0">,bottom: </span><span class="s3">25</span><span class="s0">),</span>
+                                      <span class="s0">child: Text(</span><span class="s1">'T-Shirt-Blue'</span><span class="s0">,style: TextStyle(</span>
+                                          <span class="s0">color: Colors.black45</span>
+                                      <span class="s0">),),</span>
+                                    <span class="s0">)),</span>
+                                <span class="s0">SizedBox(height: </span><span class="s3">10</span><span class="s0">,),</span>
+                                <span class="s0">Align(</span>
+                                    <span class="s0">alignment: Alignment.bottomLeft,</span>
+                                    <span class="s0">child: Padding(</span>
+                                      <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.only(left: </span><span class="s3">8</span><span class="s0">,bottom: </span><span class="s3">8</span><span class="s0">),</span>
+                                      <span class="s0">child: Text(</span><span class="s1">'Rs-499'</span><span class="s0">,style: TextStyle(</span>
+                                          <span class="s0">fontWeight: FontWeight.bold</span>
+                                      <span class="s0">),),</span>
+                                    <span class="s0">)),</span>
+
+                                <span class="s0">Padding(</span>
+                                  <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.only(left: </span><span class="s3">110</span><span class="s0">),</span>
+                                  <span class="s0">child: Align(</span>
+                                    <span class="s0">alignment: Alignment.topRight,</span>
+                                    <span class="s0">child: FlatButton(</span>
+                                      <span class="s0">onPressed: () {},</span>
+                                      <span class="s0">child: Icon(Icons.favorite,color: Colors.black45),</span>
+                                      <span class="s0">shape: CircleBorder(</span>
+                                        <span class="s0">side: BorderSide(</span>
+                                          <span class="s0">color: Colors.black45,</span>
+                                        <span class="s0">),</span>
+                                      <span class="s0">),</span>
+                                    <span class="s0">),</span>
+                                  <span class="s0">),</span>
+                                <span class="s0">)</span>
+
+
+                              <span class="s0">],</span>
+                            <span class="s0">),</span>
+                            <span class="s0">decoration: BoxDecoration(</span>
+                                <span class="s0">color: Colors.white,</span>
+                                <span class="s0">borderRadius: BorderRadius.circular(</span><span class="s3">15</span><span class="s0">)),</span>
+                          <span class="s0">);</span>
+                        <span class="s0">}),</span>
+                  <span class="s0">),</span>
+
+                  <span class="s4">/* Row( 
+                                  children: &lt;Widget&gt;[ 
+                                    Container( 
+                                      width: 180, 
+                                      height: 300, 
+                                      decoration: BoxDecoration( 
+                                        borderRadius: BorderRadius.circular(10), 
+                                        color: Colors.white, 
+                                      ), //BoxD// ecoration 
+                                      child: Column( 
+                                        children: [ 
+                                          Image.asset('assets/images/t-shirt-sport.jpg', 
+                                              height: 250, 
+                                              fit:BoxFit.fill ), 
+                                          Text('T-Shirt'), 
+                                          Text('499') 
+ 
+                                        ], 
+                                      ), 
+                                    ), //Conatiner 
+                                    SizedBox( 
+                                      width: 20, 
+                                    ), //SizedBox 
+                                    Container( 
+                                      width: 180, 
+                                      height: 300, 
+                                      decoration: BoxDecoration( 
+                                        borderRadius: BorderRadius.circular(10), 
+                                        color: Colors.white, 
+                                      ), //BoxD// ecoration 
+                                      child: Column( 
+                                        children: [ 
+                                          Image.asset('assets/images/t-shirt-sport.jpg', 
+                                              height: 250, 
+                                              fit:BoxFit.fill ), 
+                                          Text('T-Shirt'), 
+                                          Text('499') 
+ 
+ 
+                                        ], 
+                                      ), 
+                                    ),  //Container 
+                                  ], //&lt;Widget&gt;[] 
+                                  mainAxisAlignment: MainAxisAlignment.center, 
+                                ), 
+                                SizedBox( 
+                                  height: 20, 
+                                ), 
+                                Row( 
+                                  children: &lt;Widget&gt;[ 
+                                    Container( 
+                                      width: 180, 
+                                      height: 300, 
+                                      decoration: BoxDecoration( 
+                                        borderRadius: BorderRadius.circular(10), 
+                                        color: Colors.white, 
+                                      ), //BoxD// ecoration 
+                                      child: Column( 
+                                        children: [ 
+                                          Image.asset('assets/images/t-shirt-sport.jpg', 
+                                              height: 250, 
+                                              fit:BoxFit.fill ), 
+                                          Text('T-Shirt'), 
+                                          Text('499') 
+ 
+ 
+                                        ], 
+                                      ), 
+                                    ),  //Conatiner 
+                                    SizedBox( 
+                                      width: 20, 
+                                    ), //SizedBox 
+                                    Container( 
+                                      width: 180, 
+                                      height: 300, 
+                                      decoration: BoxDecoration( 
+                                        borderRadius: BorderRadius.circular(10), 
+                                        color: Colors.white, 
+                                      ), //BoxD// ecoration 
+                                      child: Column( 
+                                        children: [ 
+                                          Image.asset('assets/images/t-shirt-sport.jpg', 
+                                              height: 250, 
+                                              fit:BoxFit.fill ), 
+                                          Text('T-Shirt'), 
+                                          Text('499') 
+ 
+ 
+                                        ], 
+                                      ), 
+                                    ),  //Container 
+                                  ], //&lt;Widget&gt;[] 
+                                  mainAxisAlignment: MainAxisAlignment.center, 
+                                ), *///Row</span>
+                <span class="s0">], </span><span class="s4">//&lt;widget&gt;[]</span>
+
+              <span class="s0">),</span>
+            <span class="s0">), </span><span class="s4">//Column</span>
+          <span class="s0">) </span><span class="s4">//Padding</span>
+      <span class="s0">),</span>
+    <span class="s0">);</span>
+
+  <span class="s0">}</span>
+<span class="s0">}</span>
+</pre>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<html>
+<head>
+<title>profile.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #080808;}
+.s1 { color: #067d17;}
+.s2 { color: #0033b3;}
+.s3 { color: #8c8c8c; font-style: italic;}
+.s4 { color: #1750eb;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+profile.dart</font>
+</center></td></tr></table>
+<pre>
+
+<span class="s0">import </span><span class="s1">'package:aesthenics/Config/config.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/pages/wishList.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/services/firebase_services.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:cloud_firestore/cloud_firestore.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:firebase_auth/firebase_auth.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:flutter/material.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:provider/provider.dart'</span><span class="s0">;</span>
+
+<span class="s2">class </span><span class="s0">profile </span><span class="s2">extends </span><span class="s0">StatefulWidget {</span>
+  <span class="s0">@override</span>
+  <span class="s0">_profileState createState() =&gt; _profileState();</span>
+<span class="s0">}</span>
+
+<span class="s2">class </span><span class="s0">_profileState </span><span class="s2">extends </span><span class="s0">State&lt;profile&gt; {</span>
+
+  <span class="s0">FirebaseServices _firebaseServices ;</span>
+  <span class="s0">@override</span>
+  <span class="s2">void </span><span class="s0">initState() {</span><span class="s3">// TODO: implement initStsuper.initState();</span>
+    <span class="s0">Future.delayed(Duration.zero).then((_) async {</span>
+      <span class="s0">_firebaseServices = FirebaseServices();});</span>
+    <span class="s0">print(EcommerceApp.userUID);</span>
+    <span class="s0">FirebaseFirestore.instance.collection(</span><span class="s1">&quot;users&quot;</span><span class="s0">).doc(EcommerceApp.userUID).get();}</span>
+    <span class="s0">@override</span>
+  <span class="s0">Widget build(BuildContext context) {</span>
+    <span class="s2">return </span><span class="s0">SafeArea(</span>
+      <span class="s0">child: Scaffold(</span>
+        <span class="s0">body: Padding(</span>
+          <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.all(</span><span class="s4">8.0</span><span class="s0">),</span>
+          <span class="s0">child: SingleChildScrollView(</span>
+            <span class="s0">child: Column(</span>
+              <span class="s0">crossAxisAlignment: CrossAxisAlignment.start,</span>
+              <span class="s0">children: [</span>
+                <span class="s3">/*  IconButton(icon: Icon(Icons.close),color: Colors.black,iconSize: 30, 
+                  onPressed: ()=&gt; Navigator.pop(context),),*/</span>
+                <span class="s0">Center(child: Image.asset(</span><span class="s1">'assets/images/AESTHENICSLOGO.png'</span><span class="s0">,scale: </span><span class="s4">10</span><span class="s0">,)),</span>
+                <span class="s0">SizedBox(</span>
+                  <span class="s0">height: </span><span class="s4">20</span><span class="s0">,</span>
+
+                <span class="s0">),</span>
+                <span class="s0">Container(</span>
+                  <span class="s0">height: </span><span class="s4">80</span><span class="s0">,</span>
+                  <span class="s0">width: double.infinity,</span>
+                  <span class="s0">color: Colors.black12,</span>
+                  <span class="s0">child: Column(</span>
+                    <span class="s3">//crossAxisAlignment: CrossAxisAlignment.center,</span>
+                    <span class="s0">mainAxisAlignment: MainAxisAlignment.center,</span>
+                    <span class="s0">children: [</span>
+                      <span class="s0">Text(</span><span class="s1">'MY ACCOUNT'</span><span class="s0">,style: TextStyle(fontSize: </span><span class="s4">20</span><span class="s0">),),</span>
+                      <span class="s0">Text(</span><span class="s1">'DASHBOARD'</span><span class="s0">,style: TextStyle(</span>
+                          <span class="s0">color: Colors.grey</span>
+                      <span class="s0">),)</span>
+                    <span class="s0">],</span>
+                  <span class="s0">),</span>
+                <span class="s0">),</span>
+                <span class="s0">SizedBox(</span>
+                  <span class="s0">height: </span><span class="s4">40</span><span class="s0">,</span>
+                <span class="s0">),</span>
+
+                <span class="s0">Row(</span>
+                  <span class="s0">children: [</span>
+                    <span class="s0">Icon(Icons.account_circle_rounded,size: </span><span class="s4">80</span><span class="s0">,color: Colors.grey,),</span>
+                    <span class="s0">StreamBuilder(</span>
+                      <span class="s0">stream: getData(),</span>
+                      <span class="s0">builder: (context,snapshot){</span>
+                        <span class="s2">if </span><span class="s0">(!snapshot.hasData) </span><span class="s2">return const </span><span class="s0">Text(</span><span class="s1">&quot;Loading...&quot;</span><span class="s0">);</span>
+                        <span class="s2">else if</span><span class="s0">(snapshot.hasData){</span>
+                          <span class="s2">return </span><span class="s0">Container(</span>
+                            <span class="s0">child: Column(</span>
+                              <span class="s0">children: &lt;Widget&gt;[</span>
+                                <span class="s0">Text(snapshot.data[</span><span class="s1">&quot;name&quot;</span><span class="s0">].toString(),style: TextStyle(</span>
+                                    <span class="s0">color: Colors.black45,fontSize: </span><span class="s4">18</span>
+                                <span class="s0">),),</span>
+                              <span class="s0">],</span>
+                            <span class="s0">),</span>
+                          <span class="s0">);</span>
+                        <span class="s0">}</span>
+                        <span class="s2">return </span><span class="s0">CircularProgressIndicator();</span>
+                      <span class="s0">},</span>
+                    <span class="s0">)</span>
+
+
+
+                  <span class="s0">],</span>
+                <span class="s0">),</span>
+                <span class="s0">SizedBox(</span>
+                  <span class="s0">height: </span><span class="s4">20</span><span class="s0">,</span>
+                <span class="s0">),</span>
+                <span class="s0">TextButton(onPressed: </span><span class="s2">null</span><span class="s0">, child: Text(</span><span class="s1">'ORDERS'</span><span class="s0">,style: TextStyle(</span>
+                    <span class="s0">color: Colors.black45</span>
+                <span class="s0">),)),</span>
+                <span class="s0">Divider(</span>
+                  <span class="s0">height: </span><span class="s4">1</span><span class="s0">,</span>
+                  <span class="s0">color: Colors.black45,</span>
+                <span class="s0">),</span>
+                <span class="s0">TextButton(onPressed: </span><span class="s2">null</span><span class="s0">, child: Text(</span><span class="s1">'ADDRESSES'</span><span class="s0">,style: TextStyle(</span>
+                    <span class="s0">color: Colors.black45</span>
+                <span class="s0">),)),</span>
+                <span class="s0">Divider(</span>
+                  <span class="s0">height: </span><span class="s4">1</span><span class="s0">,</span>
+                  <span class="s0">color: Colors.black45,</span>
+                <span class="s0">),</span>
+                <span class="s0">TextButton(onPressed: </span><span class="s2">null</span><span class="s0">, child: Text(</span><span class="s1">'ACCOUNT DETAILS'</span><span class="s0">,style: TextStyle(</span>
+                    <span class="s0">color: Colors.black45</span>
+                <span class="s0">),)),</span>
+                <span class="s0">Divider(</span>
+                  <span class="s0">height: </span><span class="s4">1</span><span class="s0">,</span>
+                  <span class="s0">color: Colors.black45,</span>
+                <span class="s0">),</span>
+                <span class="s0">TextButton(onPressed: (){</span>
+                  <span class="s0">Navigator.push(</span>
+                      <span class="s0">context,</span>
+                      <span class="s0">MaterialPageRoute(builder: (context) =&gt; wishList()));</span>
+
+                <span class="s0">}, child: Text(</span><span class="s1">'WISHLIST'</span><span class="s0">,style: TextStyle(</span>
+                    <span class="s0">color: Colors.black45</span>
+                <span class="s0">),)),</span>
+                <span class="s0">Divider(</span>
+                  <span class="s0">height: </span><span class="s4">1</span><span class="s0">,</span>
+                  <span class="s0">color: Colors.black45,</span>
+                <span class="s0">),</span>
+                <span class="s0">TextButton(onPressed:(){</span>
+                  <span class="s0">FirebaseAuth.instance.signOut();</span>
+                <span class="s0">}, child: Text(</span><span class="s1">'LOGOUT'</span><span class="s0">,style: TextStyle(</span>
+                    <span class="s0">color: Colors.black45</span>
+                <span class="s0">),)),</span>
+
+              <span class="s0">],</span>
+            <span class="s0">),</span>
+          <span class="s0">),</span>
+        <span class="s0">),</span>
+
+      <span class="s0">),</span>
+    <span class="s0">);</span>
+  <span class="s0">}</span>
+<span class="s3">/*  _fetch()async{ 
+    final firebaseUser =await FirebaseAuth.instance.currentUser; 
+    if(firebaseUser!=null)await 
+      FirebaseFirestore.instance.collection(&quot;users&quot;) 
+          .doc(firebaseUser.uid).get(); 
+ 
+  }*/</span>
+  <span class="s0">Stream&lt;DocumentSnapshot&gt; getData()async*{</span>
+  <span class="s3">//  var _firebaseAuth;</span>
+    <span class="s0">User user = await FirebaseAuth.instance.currentUser;</span>
+    <span class="s0">yield* FirebaseFirestore.instance.collection(</span><span class="s1">'Users'</span><span class="s0">).doc(user.uid).snapshots();</span>
+  <span class="s0">}</span>
+<span class="s0">}</span>
+
+</pre>
+</body>
+</html>

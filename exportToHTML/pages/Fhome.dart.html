@@ -1,0 +1,837 @@
+<html>
+<head>
+<title>Fhome.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #080808;}
+.s1 { color: #067d17;}
+.s2 { color: #0033b3;}
+.s3 { color: #1750eb;}
+.s4 { color: #8c8c8c; font-style: italic;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Fhome.dart</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">'package:aesthenics/pages/about.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/pages/basket.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/pages/logIn.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/pages/menu.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/pages/menus.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/pages/sale.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:flutter/cupertino.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:flutter/material.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:smooth_page_indicator/smooth_page_indicator.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:tabbar/tabbar.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:flutter_signin_button/flutter_signin_button.dart'</span><span class="s0">;</span>
+
+<span class="s2">class </span><span class="s0">Fhome </span><span class="s2">extends </span><span class="s0">StatefulWidget {</span>
+  <span class="s0">@override</span>
+  <span class="s0">_FhomeState createState() =&gt; _FhomeState();</span>
+<span class="s0">}</span>
+
+<span class="s2">class </span><span class="s0">_FhomeState </span><span class="s2">extends </span><span class="s0">State&lt;Fhome&gt; {</span>
+
+  <span class="s0">PageController _controller;</span>
+  <span class="s0">int _currentPage = </span><span class="s3">0</span><span class="s0">;</span>
+
+  <span class="s0">@override</span>
+  <span class="s2">void </span><span class="s0">initState() {</span>
+    <span class="s0">_controller = PageController();</span>
+    <span class="s2">super</span><span class="s0">.initState();</span>
+  <span class="s0">}</span>
+  <span class="s2">final </span><span class="s0">controller = PageController();</span>
+  <span class="s0">@override</span>
+  <span class="s0">Widget build(BuildContext context) {</span>
+    <span class="s2">return </span><span class="s0">Scaffold(</span>
+      <span class="s0">appBar: AppBar(</span>
+        <span class="s0">backgroundColor: Colors.white,</span>
+        <span class="s4">//leading: IconButton(icon: Icon(Icons.close),color: Colors.black,onPressed: ()=&gt; Navigator.pop(context),),        centerTitle: true,</span>
+        <span class="s0">bottom: PreferredSize(</span>
+         <span class="s4">// preferredSize: Size.fromHeight(kToolbarHeight),</span>
+          <span class="s0">child: TabbarHeader(</span>
+            <span class="s0">indicatorColor: Colors.black,</span>
+            <span class="s0">foregroundColor: Colors.black,</span>
+            <span class="s0">backgroundColor: Colors.white,</span>
+            <span class="s0">controller: controller,</span>
+            <span class="s0">tabs: [</span>
+
+              <span class="s0">Tab(</span>
+                <span class="s0">child: Text(</span>
+                  <span class="s1">&quot;MAN&quot;</span><span class="s0">,</span>
+                  <span class="s0">style: TextStyle(color: Colors.black,fontSize: </span><span class="s3">18</span><span class="s0">,fontWeight: FontWeight.bold),</span>
+                <span class="s0">),</span>
+              <span class="s0">),</span>
+              <span class="s0">Tab(</span>
+                <span class="s0">child: Text(</span>
+                  <span class="s1">&quot;WOMAN&quot;</span><span class="s0">,</span>
+                  <span class="s0">style: TextStyle(color: Colors.black,fontSize: </span><span class="s3">18</span><span class="s0">,fontWeight: FontWeight.bold),</span>
+                <span class="s0">),</span>
+              <span class="s0">),</span>
+
+            <span class="s0">],</span>
+          <span class="s0">),</span>
+        <span class="s0">),</span>
+      <span class="s0">),</span>
+      <span class="s0">body: Stack(</span>
+        <span class="s0">children: [</span>
+          <span class="s0">TabbarContent(</span>
+            <span class="s0">controller: controller,</span>
+            <span class="s0">children: &lt;Widget&gt;[</span>
+              <span class="s0">PageView(</span>
+                <span class="s0">controller: _controller,</span>
+                <span class="s0">onPageChanged: (int page){</span>
+                  <span class="s0">setState(() {</span>
+                    <span class="s0">_currentPage=page;</span>
+                  <span class="s0">});</span>
+                <span class="s0">},</span>
+
+                <span class="s4">//controller: pageViewController,</span>
+                <span class="s0">scrollDirection: Axis.vertical,</span>
+                <span class="s0">children: [</span>
+                  <span class="s0">Stack(</span>
+                    <span class="s0">children: [</span>
+                      <span class="s0">Container(</span>
+                        <span class="s0">height: </span><span class="s3">500</span><span class="s0">,</span>
+
+                          <span class="s0">child: Image.asset(</span><span class="s1">'assets/images/man.jpg'</span><span class="s0">,fit: BoxFit.cover,)),</span>
+                      <span class="s0">Align(</span>
+                        <span class="s0">alignment: Alignment.bottomCenter,</span>
+                        <span class="s0">child: Padding(</span>
+                          <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.all(</span><span class="s3">100.0</span><span class="s0">),</span>
+                          <span class="s0">child: RaisedButton(</span>
+
+                            <span class="s0">child: Text(</span><span class="s1">'view'</span><span class="s0">),</span>
+                            <span class="s0">onPressed: (){</span>
+                              <span class="s0">Navigator.push(</span>
+                                <span class="s0">context,</span>
+                                <span class="s0">MaterialPageRoute(builder: (context) =&gt; menus()),</span>
+                              <span class="s0">);</span>
+                            <span class="s0">},</span>
+                          <span class="s0">),</span>
+                        <span class="s0">),</span>
+                      <span class="s0">)</span>
+
+                    <span class="s0">],</span>
+                  <span class="s0">),</span>
+                  <span class="s0">Padding(</span>
+                    <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.all(</span><span class="s3">20.0</span><span class="s0">),</span>
+                    <span class="s0">child: Container(</span>
+                     <span class="s4">// color: Colors.grey,</span>
+                    <span class="s4">// alignment: Alignment.center,</span>
+                        <span class="s0">child: GestureDetector(</span>
+                          <span class="s0">onTap:(){  Navigator.push(</span>
+                            <span class="s0">context,</span>
+                            <span class="s0">MaterialPageRoute(builder: (context) =&gt; sale()),</span>
+                          <span class="s0">);},</span>
+                          <span class="s0">child: Image.asset(</span><span class="s1">'assets/images/diwali.png'</span><span class="s0">,</span>
+                              <span class="s0">width: </span><span class="s3">800</span><span class="s0">,</span>
+
+                              <span class="s0">fit:BoxFit.fill ),</span>
+                        <span class="s0">)</span>
+                    <span class="s0">),</span>
+                  <span class="s0">),</span>
+
+                  <span class="s0">Container(</span>
+
+                      <span class="s0">child: Padding(</span>
+                        <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.all(</span><span class="s3">14.0</span><span class="s0">),</span>
+                        <span class="s0">child: Column(</span>
+                          <span class="s0">children: &lt;Widget&gt;[</span>
+                            <span class="s0">SizedBox(height: </span><span class="s3">20</span><span class="s0">,),</span>
+                            <span class="s0">Text(</span><span class="s1">'#NEW ARRIVALS'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">fontSize: </span><span class="s3">20</span><span class="s0">,fontWeight: FontWeight.bold</span>
+                            <span class="s0">),),</span>
+                            <span class="s0">SizedBox(height: </span><span class="s3">20</span><span class="s0">,),</span>
+
+
+                            <span class="s0">Row(</span>
+                              <span class="s0">children: &lt;Widget&gt;[</span>
+                                <span class="s0">Expanded(</span>
+                                  <span class="s0">child:  Container(</span>
+
+                                    <span class="s0">height: </span><span class="s3">250</span><span class="s0">,</span>
+                                    <span class="s0">decoration: BoxDecoration(</span>
+                                      <span class="s0">borderRadius: BorderRadius.circular(</span><span class="s3">10</span><span class="s0">),</span>
+                                      <span class="s0">color: Colors.white,</span>
+                                    <span class="s0">), </span><span class="s4">//BoxD// ecoration</span>
+                                    <span class="s0">child: Column(</span>
+                                      <span class="s0">children: [</span>
+                                        <span class="s0">Image.asset(</span><span class="s1">'assets/images/t-shirt-sport.jpg'</span><span class="s0">,</span>
+                                            <span class="s0">height: </span><span class="s3">200</span><span class="s0">,</span>
+                                            <span class="s0">fit:BoxFit.cover ),</span>
+                                        <span class="s0">Text(</span><span class="s1">'T-Shirt'</span><span class="s0">),</span>
+                                        <span class="s0">Text(</span><span class="s1">'499'</span><span class="s0">)</span>
+
+
+                                      <span class="s0">],</span>
+                                    <span class="s0">),</span>
+                                  <span class="s0">),</span>
+                                <span class="s0">), </span><span class="s4">//Conatiner</span>
+                                <span class="s0">SizedBox(</span>
+                                  <span class="s0">width: </span><span class="s3">10</span><span class="s0">,</span>
+                                <span class="s0">), </span><span class="s4">//SizedBox</span>
+                                <span class="s0">Expanded(</span>
+                                  <span class="s0">child: Container(</span>
+
+                                    <span class="s0">height: </span><span class="s3">250</span><span class="s0">,</span>
+                                    <span class="s0">decoration: BoxDecoration(</span>
+                                      <span class="s0">borderRadius: BorderRadius.circular(</span><span class="s3">10</span><span class="s0">),</span>
+                                      <span class="s0">color: Colors.white,</span>
+                                    <span class="s0">), </span><span class="s4">//BoxD// ecoration</span>
+                                    <span class="s0">child: Column(</span>
+                                      <span class="s0">children: [</span>
+                                        <span class="s0">Image.asset(</span><span class="s1">'assets/images/t-shirt-sport.jpg'</span><span class="s0">,</span>
+                                            <span class="s0">height: </span><span class="s3">200</span><span class="s0">,</span>
+                                            <span class="s0">fit:BoxFit.cover ),</span>
+                                        <span class="s0">Text(</span><span class="s1">'T-Shirt'</span><span class="s0">),</span>
+                                        <span class="s0">Text(</span><span class="s1">'499'</span><span class="s0">)</span>
+
+
+                                      <span class="s0">],</span>
+                                    <span class="s0">),</span>
+                                  <span class="s0">),</span>
+                                <span class="s0">),  </span><span class="s4">//Container</span>
+                              <span class="s0">], </span><span class="s4">//&lt;Widget&gt;[]</span>
+                              <span class="s0">mainAxisAlignment: MainAxisAlignment.center,</span>
+                            <span class="s0">),</span>
+                            <span class="s0">SizedBox(</span>
+                              <span class="s0">height: </span><span class="s3">10</span><span class="s0">,</span>
+                            <span class="s0">),</span>
+                            <span class="s0">Row(</span>
+                              <span class="s0">children: &lt;Widget&gt;[</span>
+                                <span class="s0">Expanded(</span>
+                                  <span class="s0">child:  Container(</span>
+
+                                    <span class="s0">height: </span><span class="s3">250</span><span class="s0">,</span>
+                                    <span class="s0">decoration: BoxDecoration(</span>
+                                      <span class="s0">borderRadius: BorderRadius.circular(</span><span class="s3">10</span><span class="s0">),</span>
+                                      <span class="s0">color: Colors.white,</span>
+                                    <span class="s0">), </span><span class="s4">//BoxD// ecoration</span>
+                                    <span class="s0">child: Column(</span>
+                                      <span class="s0">children: [</span>
+                                        <span class="s0">Image.asset(</span><span class="s1">'assets/images/t-shirt-sport.jpg'</span><span class="s0">,</span>
+                                            <span class="s0">height: </span><span class="s3">200</span><span class="s0">,</span>
+                                            <span class="s0">fit:BoxFit.cover ),</span>
+                                        <span class="s0">Text(</span><span class="s1">'T-Shirt'</span><span class="s0">),</span>
+                                        <span class="s0">Text(</span><span class="s1">'499'</span><span class="s0">)</span>
+
+
+                                      <span class="s0">],</span>
+                                    <span class="s0">),</span>
+                                  <span class="s0">),</span>
+                                <span class="s0">), </span><span class="s4">//Conatiner</span>
+                                <span class="s0">SizedBox(</span>
+                                  <span class="s0">width: </span><span class="s3">10</span><span class="s0">,</span>
+                                <span class="s0">), </span><span class="s4">//SizedBox</span>
+                                <span class="s0">Expanded(</span>
+                                  <span class="s0">child: Container(</span>
+
+                                    <span class="s0">height: </span><span class="s3">250</span><span class="s0">,</span>
+                                    <span class="s0">decoration: BoxDecoration(</span>
+                                      <span class="s0">borderRadius: BorderRadius.circular(</span><span class="s3">10</span><span class="s0">),</span>
+                                      <span class="s0">color: Colors.white,</span>
+                                    <span class="s0">), </span><span class="s4">//BoxD// ecoration</span>
+                                    <span class="s0">child: Column(</span>
+                                      <span class="s0">children: [</span>
+                                        <span class="s0">Image.asset(</span><span class="s1">'assets/images/t-shirt-sport.jpg'</span><span class="s0">,</span>
+                                            <span class="s0">height: </span><span class="s3">200</span><span class="s0">,</span>
+                                            <span class="s0">fit:BoxFit.cover ),</span>
+                                        <span class="s0">Text(</span><span class="s1">'T-Shirt'</span><span class="s0">),</span>
+                                        <span class="s0">Text(</span><span class="s1">'499'</span><span class="s0">)</span>
+
+
+                                      <span class="s0">],</span>
+                                    <span class="s0">),</span>
+                                  <span class="s0">),</span>
+                                <span class="s0">),  </span><span class="s4">//Container</span>
+                              <span class="s0">], </span><span class="s4">//&lt;Widget&gt;[]</span>
+                              <span class="s0">mainAxisAlignment: MainAxisAlignment.center,</span>
+                            <span class="s0">), </span><span class="s4">//Row</span>
+                          <span class="s0">], </span><span class="s4">//&lt;widget&gt;[]</span>
+
+                        <span class="s0">), </span><span class="s4">//Column</span>
+                      <span class="s0">) </span><span class="s4">//Padding</span>
+                  <span class="s0">), </span><span class="s4">//C</span>
+
+
+
+                  <span class="s0">Container(</span>
+                    <span class="s0">child: SingleChildScrollView(</span>
+
+                      <span class="s0">child: Column(</span>
+                        <span class="s0">crossAxisAlignment: CrossAxisAlignment.start,</span>
+                        <span class="s0">children: [</span>
+
+                          <span class="s0">TextButton(</span>
+                            <span class="s0">child: Text(</span><span class="s1">'QUICK LINKS'</span><span class="s0">,style: TextStyle(</span>
+                                <span class="s0">color: Colors.black</span>
+                            <span class="s0">),),</span>
+                          <span class="s0">),</span>
+                          <span class="s0">TextButton(onPressed: (){</span>
+                            <span class="s0">Navigator.push(</span>
+                              <span class="s0">context,</span>
+                              <span class="s0">MaterialPageRoute(builder: (context) =&gt; about()),</span>
+                            <span class="s0">);</span>
+                          <span class="s0">}, child: Text(</span><span class="s1">'ABOUT AESTHENIC'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">color: Colors.black45</span>
+                          <span class="s0">),)),</span>
+                          <span class="s0">Divider(</span>
+                            <span class="s0">height:</span><span class="s3">1</span><span class="s0">,</span>
+                            <span class="s0">color: Colors.black45,</span>
+                          <span class="s0">),</span>
+                          <span class="s0">TextButton(onPressed: </span><span class="s2">null</span><span class="s0">, child: Text(</span><span class="s1">'BECOME AN AMBASSADOR'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">color: Colors.black45</span>
+                          <span class="s0">),)),</span>
+                          <span class="s0">Divider(</span>
+                            <span class="s0">height: </span><span class="s3">1</span><span class="s0">,</span>
+                            <span class="s0">color: Colors.black45,</span>
+                          <span class="s0">),</span>
+
+                          <span class="s0">TextButton(onPressed: </span><span class="s2">null</span><span class="s0">, child: Text(</span><span class="s1">'QUALITY'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">color: Colors.black45,</span>
+                          <span class="s0">),)</span>
+                          <span class="s0">),</span>
+                          <span class="s0">Divider(</span>
+                            <span class="s0">height: </span><span class="s3">1</span><span class="s0">,</span>
+                            <span class="s0">color: Colors.black45,</span>
+                          <span class="s0">),</span>
+                         
+                          <span class="s0">TextButton(onPressed: </span><span class="s2">null</span><span class="s0">, child: Text(</span><span class="s1">' LETS GET SOCIAL'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">color: Colors.black</span>
+                          <span class="s0">),)),</span>
+                          <span class="s0">Container(</span>
+                            <span class="s0">height: </span><span class="s3">30</span><span class="s0">,</span>
+
+                            <span class="s0">child: Row(</span>
+                              <span class="s0">mainAxisAlignment: MainAxisAlignment.start,</span>
+                              <span class="s0">children: &lt;Widget&gt;[</span>
+                                <span class="s0">Padding(</span>
+                                  <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.all(</span><span class="s3">1.0</span><span class="s0">),</span>
+                                  <span class="s0">child: SignInButton(</span>
+                                    <span class="s0">Buttons.LinkedIn,</span>
+                                    <span class="s0">mini: </span><span class="s2">true</span><span class="s0">,</span>
+                                    <span class="s0">onPressed: () {</span>
+                                      <span class="s4">//_showButtonPressDialog(context, 'LinkedIn (mini)');</span>
+                                    <span class="s0">},</span>
+                                  <span class="s0">),</span>
+                                <span class="s0">),</span>
+                                <span class="s0">Padding(</span>
+                                  <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.all(</span><span class="s3">1.0</span><span class="s0">),</span>
+                                  <span class="s0">child: SignInButton(</span>
+                                    <span class="s0">Buttons.Tumblr,</span>
+                                    <span class="s0">mini: </span><span class="s2">true</span><span class="s0">,</span>
+                                    <span class="s0">onPressed: () {</span>
+                                     <span class="s4">// _showButtonPressDialog(context, 'Tumblr (mini)');</span>
+                                    <span class="s0">},</span>
+                                  <span class="s0">),</span>
+                                <span class="s0">),</span>
+                                <span class="s0">Padding(</span>
+                                  <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.all(</span><span class="s3">1.0</span><span class="s0">),</span>
+                                  <span class="s0">child: SignInButton(</span>
+                                    <span class="s0">Buttons.Facebook,</span>
+                                    <span class="s0">mini: </span><span class="s2">true</span><span class="s0">,</span>
+                                    <span class="s0">onPressed: () {</span>
+                                      <span class="s4">//_showButtonPressDialog(context, 'Facebook (mini)');</span>
+                                    <span class="s0">},</span>
+                                  <span class="s0">),</span>
+                                <span class="s0">),</span>
+                                <span class="s0">Padding(</span>
+                                  <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.all(</span><span class="s3">1.0</span><span class="s0">),</span>
+                                  <span class="s0">child: SignInButtonBuilder(</span>
+                                    <span class="s0">icon: Icons.email,</span>
+                                    <span class="s0">text: </span><span class="s1">&quot;Ignored for mini button&quot;</span><span class="s0">,</span>
+                                    <span class="s0">mini: </span><span class="s2">true</span><span class="s0">,</span>
+                                    <span class="s0">onPressed: () {</span>
+                                    <span class="s4">// _showButtonPressDialog(context, 'Email (mini)');</span>
+                                    <span class="s0">},</span>
+                                    <span class="s0">backgroundColor: Colors.cyan,</span>
+                                  <span class="s0">),</span>
+                                <span class="s0">),</span>
+
+                              <span class="s0">],</span>
+                            <span class="s0">),</span>
+                          <span class="s0">),</span>
+                          <span class="s0">TextButton(</span>
+                            <span class="s0">child: Text(</span><span class="s1">'CUSTOMER SERVICE'</span><span class="s0">,style: TextStyle(</span>
+                                <span class="s0">color: Colors.black</span>
+                            <span class="s0">),),</span>
+                          <span class="s0">),</span>
+
+                          <span class="s0">TextButton(onPressed: </span><span class="s2">null</span><span class="s0">, child: Text(</span><span class="s1">'TRACK ORDER'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">color: Colors.black45</span>
+                          <span class="s0">),)),</span>
+                          <span class="s0">Divider(</span>
+                            <span class="s0">height: </span><span class="s3">1</span><span class="s0">,</span>
+                            <span class="s0">color: Colors.black45,</span>
+                          <span class="s0">),</span>
+                          <span class="s0">TextButton(onPressed: </span><span class="s2">null</span><span class="s0">, child: Text(</span><span class="s1">'SIZE GUID - MEN'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">color: Colors.black45</span>
+                          <span class="s0">),)),</span>
+                          <span class="s0">Divider(</span>
+                            <span class="s0">height: </span><span class="s3">1</span><span class="s0">,</span>
+                            <span class="s0">color: Colors.black45,</span>
+                          <span class="s0">),</span>
+                          <span class="s0">TextButton(onPressed: </span><span class="s2">null</span><span class="s0">, child: Text(</span><span class="s1">'SIZE GUID - WOMEN'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">color: Colors.black45</span>
+                          <span class="s0">),)), Divider(</span>
+                            <span class="s0">height: </span><span class="s3">1</span><span class="s0">,</span>
+                            <span class="s0">color: Colors.black45,</span>
+                          <span class="s0">),</span>
+                          <span class="s0">TextButton(onPressed: </span><span class="s2">null</span><span class="s0">, child: Text(</span><span class="s1">'SHIPPING AND DILIVERY'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">color: Colors.black45</span>
+                          <span class="s0">),)), Divider(</span>
+                            <span class="s0">height: </span><span class="s3">1</span><span class="s0">,</span>
+                            <span class="s0">color: Colors.black45,</span>
+                          <span class="s0">),</span>
+                          <span class="s0">TextButton(onPressed: </span><span class="s2">null</span><span class="s0">, child: Text(</span><span class="s1">'RETURN AND EXCHANGE'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">color: Colors.black45</span>
+                          <span class="s0">),)), Divider(</span>
+                            <span class="s0">height: </span><span class="s3">1</span><span class="s0">,</span>
+                            <span class="s0">color: Colors.black45,</span>
+                          <span class="s0">),</span>
+                          <span class="s0">TextButton(onPressed: </span><span class="s2">null</span><span class="s0">, child: Text(</span><span class="s1">'CONTACT US'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">color: Colors.black45</span>
+                          <span class="s0">),)),</span>
+
+
+                        <span class="s0">],</span>
+                      <span class="s0">),</span>
+                    <span class="s0">),</span>
+                  <span class="s0">),</span>
+
+
+                <span class="s0">],</span>
+
+
+
+
+              <span class="s0">),</span>
+              <span class="s4">//woman tab</span>
+              <span class="s0">PageView(</span>
+                <span class="s0">controller: _controller,</span>
+                <span class="s0">onPageChanged: (int page){</span>
+                  <span class="s0">setState(() {</span>
+                    <span class="s0">_currentPage=page;</span>
+                  <span class="s0">});</span>
+                <span class="s0">},</span>
+
+                <span class="s4">//controller: pageViewController,</span>
+                <span class="s0">scrollDirection: Axis.vertical,</span>
+                <span class="s0">children: [</span>
+                  <span class="s0">Column(</span>
+                    <span class="s0">children: [</span>
+                      <span class="s0">Container(</span>
+                          <span class="s0">height: </span><span class="s3">500</span><span class="s0">,</span>
+
+                          <span class="s0">child: Image.asset(</span><span class="s1">'assets/images/woman.png'</span><span class="s0">,fit: BoxFit.cover,)),</span>
+                      <span class="s0">Align(</span>
+                        <span class="s0">alignment: Alignment.bottomCenter,</span>
+                        <span class="s0">child: RaisedButton(</span>
+
+                          <span class="s0">child: Text(</span><span class="s1">'view'</span><span class="s0">),</span>
+                          <span class="s0">onPressed: (){</span>
+                            <span class="s0">Navigator.push(</span>
+                              <span class="s0">context,</span>
+                              <span class="s0">MaterialPageRoute(builder: (context) =&gt; menu()),);},</span>
+                        <span class="s0">),</span>
+                      <span class="s0">)</span>
+
+                    <span class="s0">],</span>
+                  <span class="s0">),</span>
+                  <span class="s0">Padding(</span>
+                    <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.all(</span><span class="s3">20.0</span><span class="s0">),</span>
+                    <span class="s0">child: Container(</span>
+                      <span class="s4">// color: Colors.grey,</span>
+                      <span class="s4">// alignment: Alignment.center,</span>
+                        <span class="s0">child: GestureDetector(</span>
+                          <span class="s0">onTap:(){  Navigator.push(</span>
+                            <span class="s0">context,</span>
+                            <span class="s0">MaterialPageRoute(builder: (context) =&gt; sale()),</span>
+                          <span class="s0">);},</span>
+                          <span class="s0">child: Image.asset(</span><span class="s1">'assets/images/diwali.png'</span><span class="s0">,</span>
+                              <span class="s0">width: </span><span class="s3">800</span><span class="s0">,</span>
+
+                              <span class="s0">fit:BoxFit.fill ),</span>
+                        <span class="s0">)</span>
+                    <span class="s0">),</span>
+                  <span class="s0">),</span>
+                  <span class="s0">Container(</span>
+
+                      <span class="s0">child: Padding(</span>
+                        <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.all(</span><span class="s3">14.0</span><span class="s0">),</span>
+                        <span class="s0">child: Column(</span>
+                          <span class="s0">children: &lt;Widget&gt;[</span>
+                            <span class="s0">SizedBox(height: </span><span class="s3">20</span><span class="s0">,),</span>
+                            <span class="s0">Text(</span><span class="s1">'#NEW ARRIVALS'</span><span class="s0">,style: TextStyle(</span>
+                                <span class="s0">fontSize: </span><span class="s3">20</span><span class="s0">,fontWeight: FontWeight.bold</span>
+                            <span class="s0">),),</span>
+                            <span class="s0">SizedBox(height: </span><span class="s3">20</span><span class="s0">,),</span>
+
+
+                            <span class="s0">Row(</span>
+                              <span class="s0">children: &lt;Widget&gt;[</span>
+                                <span class="s0">Expanded(</span>
+                                  <span class="s0">child:  Container(</span>
+
+                                    <span class="s0">height: </span><span class="s3">250</span><span class="s0">,</span>
+                                    <span class="s0">decoration: BoxDecoration(</span>
+                                      <span class="s0">borderRadius: BorderRadius.circular(</span><span class="s3">10</span><span class="s0">),</span>
+                                      <span class="s0">color: Colors.white,</span>
+                                    <span class="s0">), </span><span class="s4">//BoxD// ecoration</span>
+                                    <span class="s0">child: Column(</span>
+                                      <span class="s0">children: [</span>
+                                        <span class="s0">Image.asset(</span><span class="s1">'assets/images/t-shirt-sport.jpg'</span><span class="s0">,</span>
+                                            <span class="s0">height: </span><span class="s3">200</span><span class="s0">,</span>
+                                            <span class="s0">fit:BoxFit.cover ),</span>
+                                        <span class="s0">Text(</span><span class="s1">'T-Shirt'</span><span class="s0">),</span>
+                                        <span class="s0">Text(</span><span class="s1">'499'</span><span class="s0">)</span>
+
+
+                                      <span class="s0">],</span>
+                                    <span class="s0">),</span>
+                                  <span class="s0">),</span>
+                                <span class="s0">), </span><span class="s4">//Conatiner</span>
+                                <span class="s0">SizedBox(</span>
+                                  <span class="s0">width: </span><span class="s3">10</span><span class="s0">,</span>
+                                <span class="s0">), </span><span class="s4">//SizedBox</span>
+                                <span class="s0">Expanded(</span>
+                                  <span class="s0">child: Container(</span>
+
+                                    <span class="s0">height: </span><span class="s3">250</span><span class="s0">,</span>
+                                    <span class="s0">decoration: BoxDecoration(</span>
+                                      <span class="s0">borderRadius: BorderRadius.circular(</span><span class="s3">10</span><span class="s0">),</span>
+                                      <span class="s0">color: Colors.white,</span>
+                                    <span class="s0">), </span><span class="s4">//BoxD// ecoration</span>
+                                    <span class="s0">child: Column(</span>
+                                      <span class="s0">children: [</span>
+                                        <span class="s0">Image.asset(</span><span class="s1">'assets/images/t-shirt-sport.jpg'</span><span class="s0">,</span>
+                                            <span class="s0">height: </span><span class="s3">200</span><span class="s0">,</span>
+                                            <span class="s0">fit:BoxFit.cover ),</span>
+                                        <span class="s0">Text(</span><span class="s1">'T-Shirt'</span><span class="s0">),</span>
+                                        <span class="s0">Text(</span><span class="s1">'499'</span><span class="s0">)</span>
+
+
+                                      <span class="s0">],</span>
+                                    <span class="s0">),</span>
+                                  <span class="s0">),</span>
+                                <span class="s0">),  </span><span class="s4">//Container</span>
+                              <span class="s0">], </span><span class="s4">//&lt;Widget&gt;[]</span>
+                              <span class="s0">mainAxisAlignment: MainAxisAlignment.center,</span>
+                            <span class="s0">),</span>
+                            <span class="s0">SizedBox(</span>
+                              <span class="s0">height: </span><span class="s3">10</span><span class="s0">,</span>
+                            <span class="s0">),</span>
+                            <span class="s0">Row(</span>
+                              <span class="s0">children: &lt;Widget&gt;[</span>
+                                <span class="s0">Expanded(</span>
+                                  <span class="s0">child:  Container(</span>
+
+                                    <span class="s0">height: </span><span class="s3">250</span><span class="s0">,</span>
+                                    <span class="s0">decoration: BoxDecoration(</span>
+                                      <span class="s0">borderRadius: BorderRadius.circular(</span><span class="s3">10</span><span class="s0">),</span>
+                                      <span class="s0">color: Colors.white,</span>
+                                    <span class="s0">), </span><span class="s4">//BoxD// ecoration</span>
+                                    <span class="s0">child: Column(</span>
+                                      <span class="s0">children: [</span>
+                                        <span class="s0">Image.asset(</span><span class="s1">'assets/images/t-shirt-sport.jpg'</span><span class="s0">,</span>
+                                            <span class="s0">height: </span><span class="s3">200</span><span class="s0">,</span>
+                                            <span class="s0">fit:BoxFit.cover ),</span>
+                                        <span class="s0">Text(</span><span class="s1">'T-Shirt'</span><span class="s0">),</span>
+                                        <span class="s0">Text(</span><span class="s1">'499'</span><span class="s0">)</span>
+
+
+                                      <span class="s0">],</span>
+                                    <span class="s0">),</span>
+                                  <span class="s0">),</span>
+                                <span class="s0">), </span><span class="s4">//Conatiner</span>
+                                <span class="s0">SizedBox(</span>
+                                  <span class="s0">width: </span><span class="s3">10</span><span class="s0">,</span>
+                                <span class="s0">), </span><span class="s4">//SizedBox</span>
+                                <span class="s0">Expanded(</span>
+                                  <span class="s0">child: Container(</span>
+
+                                    <span class="s0">height: </span><span class="s3">250</span><span class="s0">,</span>
+                                    <span class="s0">decoration: BoxDecoration(</span>
+                                      <span class="s0">borderRadius: BorderRadius.circular(</span><span class="s3">10</span><span class="s0">),</span>
+                                      <span class="s0">color: Colors.white,</span>
+                                    <span class="s0">), </span><span class="s4">//BoxD// ecoration</span>
+                                    <span class="s0">child: Column(</span>
+                                      <span class="s0">children: [</span>
+                                        <span class="s0">Image.asset(</span><span class="s1">'assets/images/t-shirt-sport.jpg'</span><span class="s0">,</span>
+                                            <span class="s0">height: </span><span class="s3">200</span><span class="s0">,</span>
+                                            <span class="s0">fit:BoxFit.cover ),</span>
+                                        <span class="s0">Text(</span><span class="s1">'T-Shirt'</span><span class="s0">),</span>
+                                        <span class="s0">Text(</span><span class="s1">'499'</span><span class="s0">)</span>
+
+
+                                      <span class="s0">],</span>
+                                    <span class="s0">),</span>
+                                  <span class="s0">),</span>
+                                <span class="s0">),  </span><span class="s4">//Container</span>
+                              <span class="s0">], </span><span class="s4">//&lt;Widget&gt;[]</span>
+                              <span class="s0">mainAxisAlignment: MainAxisAlignment.center,</span>
+                            <span class="s0">), </span><span class="s4">//Row</span>
+                          <span class="s0">], </span><span class="s4">//&lt;widget&gt;[]</span>
+
+                        <span class="s0">), </span><span class="s4">//Column</span>
+                      <span class="s0">) </span><span class="s4">//Padding</span>
+                  <span class="s0">),</span>
+                  <span class="s4">//C</span>
+                  <span class="s0">Container(</span>
+                    <span class="s0">child: SingleChildScrollView(</span>
+
+                      <span class="s0">child: Column(</span>
+                        <span class="s0">crossAxisAlignment: CrossAxisAlignment.start,</span>
+                        <span class="s0">children: [</span>
+
+                          <span class="s0">TextButton(</span>
+                            <span class="s0">child: Text(</span><span class="s1">'QUICK LINKS'</span><span class="s0">,style: TextStyle(</span>
+                                <span class="s0">color: Colors.black</span>
+                            <span class="s0">),),</span>
+                          <span class="s0">),</span>
+                          <span class="s0">TextButton(onPressed: (){</span>
+                            <span class="s0">Navigator.push(</span>
+                              <span class="s0">context,</span>
+                              <span class="s0">MaterialPageRoute(builder: (context) =&gt; about()),</span>
+                            <span class="s0">);</span>
+                          <span class="s0">}, child: Text(</span><span class="s1">'ABOUT AESTHENIC'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">color: Colors.black45</span>
+                          <span class="s0">),)),</span>
+                          <span class="s0">Divider(</span>
+                            <span class="s0">height:</span><span class="s3">1</span><span class="s0">,</span>
+                            <span class="s0">color: Colors.black45,</span>
+                          <span class="s0">),</span>
+                          <span class="s0">TextButton(onPressed: </span><span class="s2">null</span><span class="s0">, child: Text(</span><span class="s1">'BECOME AN AMBASSADOR'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">color: Colors.black45</span>
+                          <span class="s0">),)),</span>
+                          <span class="s0">Divider(</span>
+                            <span class="s0">height: </span><span class="s3">1</span><span class="s0">,</span>
+                            <span class="s0">color: Colors.black45,</span>
+                          <span class="s0">),</span>
+
+                          <span class="s0">TextButton(onPressed: </span><span class="s2">null</span><span class="s0">, child: Text(</span><span class="s1">'QUALITY'</span><span class="s0">,style: TextStyle(</span>
+                            <span class="s0">color: Colors.black45,</span>
+                          <span class="s0">),)</span>
+                          <span class="s0">),</span>
+                          <span class="s0">Divider(</span>
+                            <span class="s0">height: </span><span class="s3">1</span><span class="s0">,</span>
+                            <span class="s0">color: Colors.black45,</span>
+                          <span class="s0">),</span>
+
+                          <span class="s0">TextButton(onPressed: </span><span class="s2">null</span><span class="s0">, child: Text(</span><span class="s1">' LETS GET SOCIAL'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">color: Colors.black</span>
+                          <span class="s0">),)),</span>
+                          <span class="s0">Container(</span>
+                            <span class="s0">height: </span><span class="s3">30</span><span class="s0">,</span>
+
+                            <span class="s0">child: Row(</span>
+                              <span class="s0">mainAxisAlignment: MainAxisAlignment.start,</span>
+                              <span class="s0">children: &lt;Widget&gt;[</span>
+                                <span class="s0">Padding(</span>
+                                  <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.all(</span><span class="s3">1.0</span><span class="s0">),</span>
+                                  <span class="s0">child: SignInButton(</span>
+                                    <span class="s0">Buttons.LinkedIn,</span>
+                                    <span class="s0">mini: </span><span class="s2">true</span><span class="s0">,</span>
+                                    <span class="s0">onPressed: () {</span>
+                                      <span class="s4">//_showButtonPressDialog(context, 'LinkedIn (mini)');</span>
+                                    <span class="s0">},</span>
+                                  <span class="s0">),</span>
+                                <span class="s0">),</span>
+                                <span class="s0">Padding(</span>
+                                  <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.all(</span><span class="s3">1.0</span><span class="s0">),</span>
+                                  <span class="s0">child: SignInButton(</span>
+                                    <span class="s0">Buttons.Tumblr,</span>
+                                    <span class="s0">mini: </span><span class="s2">true</span><span class="s0">,</span>
+                                    <span class="s0">onPressed: () {</span>
+                                      <span class="s4">// _showButtonPressDialog(context, 'Tumblr (mini)');</span>
+                                    <span class="s0">},</span>
+                                  <span class="s0">),</span>
+                                <span class="s0">),</span>
+                                <span class="s0">Padding(</span>
+                                  <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.all(</span><span class="s3">1.0</span><span class="s0">),</span>
+                                  <span class="s0">child: SignInButton(</span>
+                                    <span class="s0">Buttons.Facebook,</span>
+                                    <span class="s0">mini: </span><span class="s2">true</span><span class="s0">,</span>
+                                    <span class="s0">onPressed: () {</span>
+                                      <span class="s4">//_showButtonPressDialog(context, 'Facebook (mini)');</span>
+                                    <span class="s0">},</span>
+                                  <span class="s0">),</span>
+                                <span class="s0">),</span>
+                                <span class="s0">Padding(</span>
+                                  <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.all(</span><span class="s3">1.0</span><span class="s0">),</span>
+                                  <span class="s0">child: SignInButtonBuilder(</span>
+                                    <span class="s0">icon: Icons.email,</span>
+                                    <span class="s0">text: </span><span class="s1">&quot;Ignored for mini button&quot;</span><span class="s0">,</span>
+                                    <span class="s0">mini: </span><span class="s2">true</span><span class="s0">,</span>
+                                    <span class="s0">onPressed: () {</span>
+                                      <span class="s4">// _showButtonPressDialog(context, 'Email (mini)');</span>
+                                    <span class="s0">},</span>
+                                    <span class="s0">backgroundColor: Colors.cyan,</span>
+                                  <span class="s0">),</span>
+                                <span class="s0">),</span>
+
+                              <span class="s0">],</span>
+                            <span class="s0">),</span>
+                          <span class="s0">),</span>
+                          <span class="s0">TextButton(</span>
+                            <span class="s0">child: Text(</span><span class="s1">'CUSTOMER SERVICE'</span><span class="s0">,style: TextStyle(</span>
+                                <span class="s0">color: Colors.black</span>
+                            <span class="s0">),),</span>
+                          <span class="s0">),</span>
+
+                          <span class="s0">TextButton(onPressed: </span><span class="s2">null</span><span class="s0">, child: Text(</span><span class="s1">'TRACK ORDER'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">color: Colors.black45</span>
+                          <span class="s0">),)),</span>
+                          <span class="s0">Divider(</span>
+                            <span class="s0">height: </span><span class="s3">1</span><span class="s0">,</span>
+                            <span class="s0">color: Colors.black45,</span>
+                          <span class="s0">),</span>
+                          <span class="s0">TextButton(onPressed: </span><span class="s2">null</span><span class="s0">, child: Text(</span><span class="s1">'SIZE GUID - MEN'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">color: Colors.black45</span>
+                          <span class="s0">),)),</span>
+                          <span class="s0">Divider(</span>
+                            <span class="s0">height: </span><span class="s3">1</span><span class="s0">,</span>
+                            <span class="s0">color: Colors.black45,</span>
+                          <span class="s0">),</span>
+                          <span class="s0">TextButton(onPressed: </span><span class="s2">null</span><span class="s0">, child: Text(</span><span class="s1">'SIZE GUID - WOMEN'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">color: Colors.black45</span>
+                          <span class="s0">),)), Divider(</span>
+                            <span class="s0">height: </span><span class="s3">1</span><span class="s0">,</span>
+                            <span class="s0">color: Colors.black45,</span>
+                          <span class="s0">),</span>
+                          <span class="s0">TextButton(onPressed: </span><span class="s2">null</span><span class="s0">, child: Text(</span><span class="s1">'SHIPPING AND DILIVERY'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">color: Colors.black45</span>
+                          <span class="s0">),)), Divider(</span>
+                            <span class="s0">height: </span><span class="s3">1</span><span class="s0">,</span>
+                            <span class="s0">color: Colors.black45,</span>
+                          <span class="s0">),</span>
+                          <span class="s0">TextButton(onPressed: </span><span class="s2">null</span><span class="s0">, child: Text(</span><span class="s1">'RETURN AND EXCHANGE'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">color: Colors.black45</span>
+                          <span class="s0">),)), Divider(</span>
+                            <span class="s0">height: </span><span class="s3">1</span><span class="s0">,</span>
+                            <span class="s0">color: Colors.black45,</span>
+                          <span class="s0">),</span>
+                          <span class="s0">TextButton(onPressed: </span><span class="s2">null</span><span class="s0">, child: Text(</span><span class="s1">'CONTACT US'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">color: Colors.black45</span>
+                          <span class="s0">),)),</span>
+
+
+                        <span class="s0">],</span>
+                      <span class="s0">),</span>
+                    <span class="s0">),</span>
+                  <span class="s0">),</span>
+
+
+                <span class="s0">],</span>
+
+
+
+
+              <span class="s0">),</span>
+
+            <span class="s0">],</span>
+          <span class="s0">),</span>
+          <span class="s0">Align(</span>
+            <span class="s0">alignment: Alignment.center,</span>
+            <span class="s0">child: Padding(</span>
+              <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.only(left: </span><span class="s3">350</span><span class="s0">),</span>
+              <span class="s0">child: Row(</span>
+                <span class="s0">children: [</span>
+                  <span class="s0">SmoothPageIndicator(</span>
+                    <span class="s0">axisDirection: Axis.vertical,</span>
+                    <span class="s0">controller: _controller,</span>
+                    <span class="s0">count: </span><span class="s3">4</span><span class="s0">,</span>
+                    <span class="s0">effect: SlideEffect(</span>
+                        <span class="s0">spacing:  </span><span class="s3">5</span><span class="s0">,</span>
+                        <span class="s0">radius:  </span><span class="s3">5</span><span class="s0">,</span>
+                        <span class="s0">dotWidth: </span><span class="s3">5</span><span class="s0">,</span>
+                        <span class="s0">dotHeight: </span><span class="s3">5</span><span class="s0">,</span>
+                        <span class="s0">dotColor: Colors.black,</span>
+                        <span class="s0">paintStyle: PaintingStyle.stroke,</span>
+                        <span class="s0">strokeWidth:  </span><span class="s3">1</span><span class="s0">,</span>
+                        <span class="s0">activeDotColor: Colors.black),</span>
+                  <span class="s0">),</span>
+                <span class="s0">],</span>
+              <span class="s0">),</span>
+            <span class="s0">),</span>
+          <span class="s0">),</span>
+
+
+        <span class="s0">],</span>
+
+      <span class="s0">),</span>
+
+    <span class="s0">);</span>
+  <span class="s0">}</span>
+
+<span class="s0">}</span>
+<span class="s4">/* 
+Container( 
+height: 700, 
+child: GridView.builder( 
+gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent( 
+maxCrossAxisExtent: 200, 
+childAspectRatio: 2 / 3, 
+ 
+crossAxisSpacing: 20, 
+mainAxisSpacing: 20), 
+itemCount: 4, 
+ 
+itemBuilder: (BuildContext ctx, index) { 
+return Container( 
+alignment: Alignment.bottomLeft, 
+child: Stack( 
+children: [ 
+Image.asset('assets/images/t-shirt-sport.jpg', 
+height: 220, 
+fit:BoxFit.fill ), 
+Align( 
+alignment: Alignment.bottomLeft, 
+child: Padding( 
+padding: const EdgeInsets.only(left: 8,bottom: 25), 
+child: Text('T-Shirt-Blue',style: TextStyle( 
+color: Colors.black45 
+),), 
+)), 
+SizedBox(height: 10,), 
+Align( 
+alignment: Alignment.bottomLeft, 
+child: Padding( 
+padding: const EdgeInsets.only(left: 8,bottom: 8), 
+child: Text('Rs-499',style: TextStyle( 
+fontWeight: FontWeight.bold 
+),), 
+)), 
+ 
+Padding( 
+padding: const EdgeInsets.only(left: 110), 
+child: Align( 
+alignment: Alignment.topRight, 
+child: FlatButton( 
+onPressed: () {}, 
+child: Icon(Icons.favorite,color: Colors.black45), 
+shape: CircleBorder( 
+side: BorderSide( 
+color: Colors.black45, 
+), 
+), 
+), 
+), 
+) 
+ 
+ 
+], 
+), 
+decoration: BoxDecoration( 
+color: Colors.white, 
+borderRadius: BorderRadius.circular(15)), 
+); 
+}), 
+),*/</span>
+</pre>
+</body>
+</html>

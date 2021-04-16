@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>size_config.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #080808;}
+.s1 { color: #067d17;}
+.s2 { color: #0033b3;}
+.s3 { color: #8c8c8c; font-style: italic;}
+.s4 { color: #1750eb;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+size_config.dart</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">'package:flutter/material.dart'</span><span class="s0">;</span>
+
+<span class="s2">class </span><span class="s0">SizeConfig {</span>
+  <span class="s0">static MediaQueryData _mediaQueryData;</span>
+  <span class="s0">static double screenWidth;</span>
+  <span class="s0">static double screenHeight;</span>
+  <span class="s0">static double defaultSize;</span>
+  <span class="s0">static Orientation orientation;</span>
+
+  <span class="s2">void </span><span class="s0">init(BuildContext context) {</span>
+    <span class="s0">_mediaQueryData = MediaQuery.of(context);</span>
+    <span class="s0">screenWidth = _mediaQueryData.size.width;</span>
+    <span class="s0">screenHeight = _mediaQueryData.size.height;</span>
+    <span class="s0">orientation = _mediaQueryData.orientation;</span>
+  <span class="s0">}</span>
+<span class="s0">}</span>
+
+<span class="s3">// Get the proportionate height as per screen size</span>
+<span class="s0">double getProportionateScreenHeight(double inputHeight) {</span>
+  <span class="s0">double screenHeight = SizeConfig.screenHeight;</span>
+  <span class="s3">// 812 is the layout height that designer use</span>
+  <span class="s2">return </span><span class="s0">(inputHeight / </span><span class="s4">812.0</span><span class="s0">) * screenHeight;</span>
+<span class="s0">}</span>
+
+<span class="s3">// Get the proportionate height as per screen size</span>
+<span class="s0">double getProportionateScreenWidth(double inputWidth) {</span>
+  <span class="s0">double screenWidth = SizeConfig.screenWidth;</span>
+  <span class="s3">// 375 is the layout width that designer use</span>
+  <span class="s2">return </span><span class="s0">(inputWidth / </span><span class="s4">375.0</span><span class="s0">) * screenWidth;</span>
+<span class="s0">}</span>
+</pre>
+</body>
+</html>

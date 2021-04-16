@@ -1,0 +1,59 @@
+<html>
+<head>
+<title>vedio.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #080808;}
+.s1 { color: #067d17;}
+.s2 { color: #0033b3;}
+.s3 { color: #1750eb;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+vedio.dart</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">'package:flutter/material.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:flick_video_player/flick_video_player.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:video_player/video_player.dart'</span><span class="s0">;</span>
+
+<span class="s2">class </span><span class="s0">VideoPlayerView </span><span class="s2">extends </span><span class="s0">StatefulWidget {</span>
+  <span class="s0">VideoPlayerView({Key key}) : </span><span class="s2">super</span><span class="s0">(key: key);</span>
+
+  <span class="s0">@override</span>
+  <span class="s0">_VideoPlayerViewState createState() =&gt; _VideoPlayerViewState();</span>
+<span class="s0">}</span>
+
+<span class="s2">class </span><span class="s0">_VideoPlayerViewState </span><span class="s2">extends </span><span class="s0">State&lt;VideoPlayerView&gt; {</span>
+  <span class="s0">FlickManager flickManager;</span>
+  <span class="s0">@override</span>
+  <span class="s2">void </span><span class="s0">initState() {</span>
+    <span class="s2">super</span><span class="s0">.initState();</span>
+    <span class="s0">flickManager = FlickManager(</span>
+      <span class="s0">videoPlayerController:</span>
+      <span class="s0">VideoPlayerController.network(</span><span class="s1">&quot;https://kampy.blob.core.windows.net/files/poultryerp/images/company/logo/Yoga.mp4&quot;</span><span class="s0">),</span>
+    <span class="s0">);</span>
+  <span class="s0">}</span>
+
+  <span class="s0">@override</span>
+  <span class="s2">void </span><span class="s0">dispose() {</span>
+    <span class="s0">flickManager.dispose();</span>
+    <span class="s2">super</span><span class="s0">.dispose();</span>
+  <span class="s0">}</span>
+
+  <span class="s0">@override</span>
+  <span class="s0">Widget build(BuildContext context) {</span>
+    <span class="s2">return </span><span class="s0">Padding(</span>
+      <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.all(</span><span class="s3">10.0</span><span class="s0">),</span>
+      <span class="s0">child: Container(</span>
+        <span class="s0">child: FlickVideoPlayer(</span>
+            <span class="s0">flickManager: flickManager</span>
+        <span class="s0">),</span>
+      <span class="s0">),</span>
+    <span class="s0">);</span>
+  <span class="s0">}</span>
+<span class="s0">}</span></pre>
+</body>
+</html>

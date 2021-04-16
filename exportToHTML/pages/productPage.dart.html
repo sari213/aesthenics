@@ -1,0 +1,367 @@
+<html>
+<head>
+<title>productPage.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #080808;}
+.s1 { color: #067d17;}
+.s2 { color: #0033b3;}
+.s3 { color: #1750eb;}
+.s4 { color: #8c8c8c; font-style: italic;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+productPage.dart</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">'package:aesthenics/pages/about.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/pages/vedio.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/services/firebase_services.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/widgets/image_swipe.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/widgets/product_size.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:cloud_firestore/cloud_firestore.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:firebase_auth/firebase_auth.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:flutter/cupertino.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:flutter/material.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:flutter_signin_button/flutter_signin_button.dart'</span><span class="s0">;</span>
+
+<span class="s2">class </span><span class="s0">productPage </span><span class="s2">extends </span><span class="s0">StatefulWidget {</span>
+  <span class="s2">final </span><span class="s0">String productId;</span>
+
+  <span class="s0">productPage({</span><span class="s2">this</span><span class="s0">.productId});</span>
+
+  <span class="s0">@override</span>
+  <span class="s0">_productPageState createState() =&gt; _productPageState();</span>
+<span class="s0">}</span>
+
+<span class="s2">class </span><span class="s0">_productPageState </span><span class="s2">extends </span><span class="s0">State&lt;productPage&gt; {</span>
+  <span class="s0">int _n = </span><span class="s3">0</span><span class="s0">;</span>
+  <span class="s2">void </span><span class="s0">add() {</span>
+    <span class="s0">setState(() {</span>
+      <span class="s0">_n++;</span>
+    <span class="s0">});</span>
+  <span class="s0">}</span>
+
+  <span class="s2">void </span><span class="s0">minus() {</span>
+    <span class="s0">setState(() {</span>
+      <span class="s2">if </span><span class="s0">(_n != </span><span class="s3">0</span><span class="s0">)</span>
+        <span class="s0">_n--;</span>
+    <span class="s0">});</span>
+  <span class="s0">}</span>
+
+
+  <span class="s0">FirebaseServices firebaseServices = FirebaseServices();</span>
+
+
+
+  <span class="s0">String _selectedProductSize = </span><span class="s1">&quot;0&quot;</span><span class="s0">;</span>
+
+  <span class="s0">Future _addToCart(){</span>
+    <span class="s2">return </span><span class="s0">firebaseServices.usersRef</span>
+        <span class="s0">.doc(firebaseServices.getUserId())</span>
+        <span class="s0">.collection(</span><span class="s1">&quot;cart&quot;</span><span class="s0">)</span>
+        <span class="s0">.doc(widget.productId)</span>
+        <span class="s0">.set({</span><span class="s1">&quot;size&quot;</span><span class="s0">:_selectedProductSize});</span>
+  <span class="s0">}</span>
+
+  <span class="s2">final </span><span class="s0">SnackBar snackBar = SnackBar(content: Text(</span><span class="s1">&quot;Product added to cart&quot;</span><span class="s0">));</span>
+  <span class="s0">int _itemCount = </span><span class="s3">0</span><span class="s0">;</span>
+
+  <span class="s0">@override</span>
+  <span class="s0">Widget build(BuildContext context) {</span>
+    <span class="s2">return </span><span class="s0">Scaffold(</span>
+      <span class="s0">body: Stack(</span>
+
+        <span class="s0">children: [</span>
+          <span class="s0">FutureBuilder(</span>
+              <span class="s0">future: firebaseServices.productsRef.doc(widget.productId).get(),</span>
+              <span class="s0">builder: (context, snapshot){</span>
+                <span class="s2">if</span><span class="s0">(snapshot.hasError){</span>
+                  <span class="s2">return </span><span class="s0">SafeArea(</span>
+                    <span class="s0">child: Scaffold(</span>
+                      <span class="s0">body: Center(</span>
+                        <span class="s0">child: Text(</span><span class="s1">'SomethingWentWrong'</span><span class="s0">),</span>
+                      <span class="s0">),</span>
+                    <span class="s0">),</span>
+                  <span class="s0">);</span>
+
+
+                <span class="s0">}</span>
+                <span class="s2">if </span><span class="s0">(snapshot.connectionState == ConnectionState.done) {</span>
+                  <span class="s0">Map&lt;String, dynamic&gt; documentData = snapshot.data.data();</span>
+                  <span class="s0">List imageList = documentData[</span><span class="s1">'images'</span><span class="s0">];</span>
+                  <span class="s0">List productSizes = documentData[</span><span class="s1">'size'</span><span class="s0">];</span>
+                  <span class="s0">_selectedProductSize = productSizes[</span><span class="s3">0</span><span class="s0">];</span>
+                  <span class="s2">return </span><span class="s0">SafeArea(</span>
+                    <span class="s0">child: Scaffold(</span>
+                        <span class="s0">body: Padding(</span>
+                          <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.all(</span><span class="s3">8.0</span><span class="s0">),</span>
+                          <span class="s0">child: SingleChildScrollView(</span>
+                            <span class="s0">child: Column(</span>
+                              <span class="s0">crossAxisAlignment: CrossAxisAlignment.start,</span>
+                              <span class="s0">children: [</span>
+                                <span class="s0">SizedBox(height: </span><span class="s3">20</span><span class="s0">,),</span>
+                                <span class="s0">Center(child: Image.asset(</span><span class="s1">'assets/images/name.png'</span><span class="s0">,scale: </span><span class="s3">10</span><span class="s0">,)),</span>
+                                <span class="s0">SizedBox(height: </span><span class="s3">20</span><span class="s0">,),</span>
+                                <span class="s0">image_swipe(imageList: imageList),</span>
+                                <span class="s0">Center(</span>
+                                  <span class="s0">child: Text(</span><span class="s1">&quot;</span><span class="s0">${documentData[</span><span class="s1">'name'</span><span class="s0">]}</span><span class="s1">&quot;</span><span class="s0">,style: TextStyle(</span>
+                                    <span class="s0">fontSize: </span><span class="s3">20</span>
+                                  <span class="s0">),),</span>
+                                <span class="s0">),</span>
+                                <span class="s0">SizedBox(height: </span><span class="s3">10</span><span class="s0">),</span>
+                                <span class="s0">Center(</span>
+                                  <span class="s0">child: Container(</span>
+                                    <span class="s0">height: </span><span class="s3">2</span><span class="s0">,</span>
+                                    <span class="s0">width: </span><span class="s3">30</span><span class="s0">,</span>
+                                    <span class="s0">color: Colors.grey,</span>
+                                  <span class="s0">),</span>
+                                <span class="s0">),</span>
+                                <span class="s0">SizedBox(height: </span><span class="s3">10</span><span class="s0">),</span>
+                                <span class="s0">Center(</span>
+                                  <span class="s0">child: Text(</span><span class="s1">&quot;Price:\₹</span><span class="s0">${documentData[</span><span class="s1">'price'</span><span class="s0">]}</span><span class="s1">&quot;</span><span class="s0">,style: TextStyle(</span>
+                                      <span class="s0">fontSize: </span><span class="s3">18</span>
+                                  <span class="s0">),),</span>
+                                <span class="s0">),</span>
+                               <span class="s4">/* Center( 
+                                  child: Text(&quot;${documentData['desc']}&quot;,style: TextStyle( 
+                                      fontSize: 18 
+                                  ),), 
+                                ),*/</span>
+                                <span class="s0">SizedBox(height: </span><span class="s3">10</span><span class="s0">),</span>
+
+                                <span class="s0">Center(</span>
+                                  <span class="s0">child: Text(</span><span class="s1">'CHOOSE YOUR COLOR'</span><span class="s0">,style: TextStyle(</span>
+                                      <span class="s0">fontSize: </span><span class="s3">14</span><span class="s0">,fontWeight: FontWeight.bold,color: Colors.black45</span>
+                                  <span class="s0">),),</span>
+                                <span class="s0">),</span>
+                                <span class="s0">SizedBox(height: </span><span class="s3">10</span><span class="s0">),</span>
+
+                                <span class="s0">Center(</span>
+                                  <span class="s0">child: Row(</span>
+                                    <span class="s0">mainAxisAlignment: MainAxisAlignment.center,</span>
+                                    <span class="s0">children: [</span>
+                                      <span class="s0">Container(</span>
+                                        <span class="s0">decoration: BoxDecoration(</span>
+                                            <span class="s0">color: Colors.red,</span>
+                                            <span class="s0">border: Border.all(color: Colors.black)</span>
+                                        <span class="s0">),</span>
+                                        <span class="s0">height: </span><span class="s3">40</span><span class="s0">,</span>
+                                        <span class="s0">width: </span><span class="s3">40</span><span class="s0">,</span>
+
+                                      <span class="s0">),</span>
+                                      <span class="s0">SizedBox(width: </span><span class="s3">10</span><span class="s0">),</span>
+                                      <span class="s0">Container(</span>
+                                        <span class="s0">decoration: BoxDecoration(</span>
+                                            <span class="s0">color: Colors.blue,</span>
+                                            <span class="s0">border: Border.all(color: Colors.black)</span>
+                                        <span class="s0">),</span>
+                                        <span class="s0">height: </span><span class="s3">40</span><span class="s0">,</span>
+                                        <span class="s0">width: </span><span class="s3">40</span><span class="s0">,</span>
+                                      <span class="s4">//  color: Colors.blue,</span>
+                                      <span class="s0">),</span>
+                                      <span class="s0">SizedBox(width: </span><span class="s3">10</span><span class="s0">),</span>
+                                      <span class="s0">Container(</span>
+                                        <span class="s0">decoration: BoxDecoration(</span>
+                                            <span class="s0">color: Colors.purple,</span>
+                                            <span class="s0">border: Border.all(color: Colors.black)</span>
+                                        <span class="s0">),</span>
+                                        <span class="s0">height: </span><span class="s3">40</span><span class="s0">,</span>
+                                        <span class="s0">width: </span><span class="s3">40</span><span class="s0">,</span>
+                                       <span class="s4">// color: Colors.yellowAccent,</span>
+                                      <span class="s0">),</span>
+
+
+
+
+                                    <span class="s0">],</span>
+                                  <span class="s0">),</span>
+                                <span class="s0">),</span>
+                                <span class="s0">SizedBox(height: </span><span class="s3">10</span><span class="s0">),</span>
+                                <span class="s0">Center(</span>
+                                  <span class="s0">child: Text(</span><span class="s1">'SIZE'</span><span class="s0">,style: TextStyle(</span>
+                                    <span class="s0">fontSize: </span><span class="s3">14</span><span class="s0">,fontWeight: FontWeight.bold,color: Colors.black45</span>
+                                  <span class="s0">),),</span>
+                                <span class="s0">),</span>
+                                <span class="s0">SizedBox(height: </span><span class="s3">10</span><span class="s0">),</span>
+
+                                <span class="s0">product_size(</span>
+                                    <span class="s0">onSelected: (size){</span>
+                                      <span class="s0">_selectedProductSize= size;</span>
+                                    <span class="s0">},</span>
+                                    <span class="s0">productSizes:productSizes),</span>
+                                <span class="s0">SizedBox(height: </span><span class="s3">20</span><span class="s0">),</span>
+                                <span class="s0">Padding(</span>
+                                  <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.all(</span><span class="s3">8.0</span><span class="s0">),</span>
+                                  <span class="s0">child: Row(</span>
+                                    <span class="s0">mainAxisAlignment: MainAxisAlignment.spaceBetween,</span>
+                                    <span class="s0">children: [</span>
+                                      <span class="s0">Expanded(</span>
+                                        <span class="s0">flex:</span><span class="s3">1</span><span class="s0">,</span>
+                                        <span class="s0">child: Container(</span>
+                                          <span class="s0">decoration: BoxDecoration(</span>
+
+                                                  <span class="s0">border: Border.all(color: Colors.black45)</span>
+                                              <span class="s0">),</span>
+                                              <span class="s4">//color: Colors.black,</span>
+
+
+                                          <span class="s0">height: </span><span class="s3">50</span><span class="s0">,</span>
+                                        <span class="s4">//  width: 100,</span>
+                                          <span class="s0">child: </span><span class="s2">new </span><span class="s0">Center(</span>
+                                            <span class="s0">child: </span><span class="s2">new </span><span class="s0">Row(</span>
+                                              <span class="s0">mainAxisAlignment: MainAxisAlignment.spaceEvenly,</span>
+                                              <span class="s0">children: &lt;Widget&gt;[</span>
+                                                <span class="s0">Container(</span>
+                                                  <span class="s0">height:</span><span class="s3">30</span><span class="s0">,</span>
+                                                  <span class="s0">width: </span><span class="s3">30</span><span class="s0">,</span>
+                                                  <span class="s0">child: </span><span class="s2">new </span><span class="s0">FloatingActionButton(</span>
+                                                    <span class="s0">elevation: </span><span class="s3">0</span><span class="s0">,</span>
+
+
+                                                    <span class="s0">onPressed: add,</span>
+                                                    <span class="s0">child: </span><span class="s2">new </span><span class="s0">Icon(Icons.remove, color: Colors.black,),</span>
+                                                    <span class="s0">backgroundColor: Colors.white,),</span>
+                                                <span class="s0">),</span>
+
+                                                <span class="s2">new </span><span class="s0">Text(</span><span class="s1">'</span><span class="s0">$_n</span><span class="s1">'</span><span class="s0">,</span>
+                                                    <span class="s0">style: </span><span class="s2">new </span><span class="s0">TextStyle(fontSize: </span><span class="s3">14.0</span><span class="s0">,color: Colors.black)),</span>
+
+                                                <span class="s0">Container(</span>
+                                                  <span class="s0">height:</span><span class="s3">30</span><span class="s0">,</span>
+                                                  <span class="s0">width: </span><span class="s3">30</span><span class="s0">,</span>
+                                                  <span class="s0">child: </span><span class="s2">new </span><span class="s0">FloatingActionButton(</span>
+                                                    <span class="s0">elevation: </span><span class="s3">0</span><span class="s0">,</span>
+                                                    <span class="s0">onPressed: minus,</span>
+                                                    <span class="s0">child: </span><span class="s2">new </span><span class="s0">Icon(Icons.add,</span>
+                                                        <span class="s0">color: Colors.black),</span>
+                                                    <span class="s0">backgroundColor: Colors.white,),</span>
+                                                <span class="s0">),</span>
+                                              <span class="s0">],</span>
+                                            <span class="s0">),</span>
+                                          <span class="s0">),</span>
+                                        <span class="s0">),</span>
+                                      <span class="s0">),</span>
+                                      <span class="s0">SizedBox(</span>
+                                        <span class="s0">width: </span><span class="s3">20</span><span class="s0">,</span>
+                                      <span class="s0">),</span>
+                                      <span class="s0">Expanded(</span>
+                                        <span class="s0">flex:</span><span class="s3">3</span><span class="s0">,</span>
+                                        <span class="s0">child: MaterialButton(</span>
+                                          <span class="s0">color: Colors.black,</span>
+                                          <span class="s0">height: </span><span class="s3">50</span><span class="s0">,</span>
+                                          <span class="s0">onPressed: ()async{</span>
+                                            <span class="s0">await _addToCart();</span>
+                                            <span class="s0">Scaffold.of(context).showSnackBar(snackBar);</span>
+                                          <span class="s0">},</span>
+                                          <span class="s0">child: Text(</span><span class="s1">'ADD TO CART'</span><span class="s0">,style: TextStyle(</span>
+                                              <span class="s0">fontSize: </span><span class="s3">18</span><span class="s0">,fontWeight: FontWeight.bold,color: Colors.white</span>
+                                          <span class="s0">),),</span>
+                                        <span class="s0">),</span>
+                                      <span class="s0">),</span>
+                                     <span class="s4">/* GestureDetector( 
+                                        onTap: ()async{ 
+                                          await _addToCart(); 
+                                          Scaffold.of(context).showSnackBar(snackBar); 
+                                        }, 
+                                        child: Expanded( 
+                                          flex: 2, 
+                                          child 
+                                              : Container( 
+                                            height: 50, 
+                                            decoration: BoxDecoration( 
+ 
+                                                color: Colors.black, 
+                                                borderRadius: BorderRadius.circular(0) 
+                                            ), 
+                                            child: Center( 
+                                              child: Text('ADD TO CART',style: TextStyle( 
+                                                  fontSize: 18,fontWeight: FontWeight.bold,color: Colors.white 
+                                              ),), 
+                                            ), 
+ 
+                                          ), 
+                                        ), 
+                                      ),*/</span>
+                                    <span class="s0">],</span>
+                                  <span class="s0">),</span>
+                                <span class="s0">),</span>
+                                <span class="s0">SizedBox(height: </span><span class="s3">20</span><span class="s0">,),</span>
+                                <span class="s0">Center(</span>
+                                  <span class="s0">child: Container(</span>
+                                    <span class="s0">height: </span><span class="s3">30</span><span class="s0">,</span>
+                                    <span class="s0">decoration: BoxDecoration(</span>
+
+                                        <span class="s0">border: Border.all(color: Colors.black)</span>
+                                    <span class="s0">),</span>
+                                    <span class="s0">child: MaterialButton(</span>
+                                      <span class="s0">color: Colors.black,</span>
+                                      <span class="s0">height: </span><span class="s3">30</span><span class="s0">,</span>
+                                     <span class="s4">/* onPressed: ()async{ 
+                                        await _addToCart(); 
+                                        Scaffold.of(context).showSnackBar(snackBar); 
+                                      },*/</span>
+                                      <span class="s0">child: Text(</span><span class="s1">'CLICK HERE FOR SIZE GUIDE'</span><span class="s0">,style: TextStyle(</span>
+                                          <span class="s0">fontSize: </span><span class="s3">12</span><span class="s0">,fontWeight: FontWeight.bold,color: Colors.black</span>
+                                      <span class="s0">),),</span>
+                                    <span class="s0">),</span>
+                                  <span class="s0">),</span>
+                                <span class="s0">),</span>
+                                <span class="s0">SizedBox(height: </span><span class="s3">20</span><span class="s0">,),</span>
+                                <span class="s0">Text(</span><span class="s1">'PRODUCT VIDEO'</span><span class="s0">),</span>
+
+                                <span class="s0">VideoPlayerView(),</span>
+
+                                <span class="s0">TextButton(onPressed: (){</span>
+                                  <span class="s0">Navigator.push(</span>
+                                    <span class="s0">context,</span>
+                                    <span class="s0">MaterialPageRoute(builder: (context) =&gt; about()),</span>
+                                  <span class="s0">);</span>
+                                <span class="s0">}, child: Text(</span><span class="s1">'Description'</span><span class="s0">,style: TextStyle(</span>
+                                    <span class="s0">color: Colors.black45</span>
+                                <span class="s0">),)),</span>
+                                <span class="s0">Divider(</span>
+                                  <span class="s0">height:</span><span class="s3">1</span><span class="s0">,</span>
+                                  <span class="s0">color: Colors.black45,</span>
+                                <span class="s0">),</span>
+                                <span class="s0">TextButton(onPressed: </span><span class="s2">null</span><span class="s0">, child: Text(</span><span class="s1">'Additional information'</span><span class="s0">,style: TextStyle(</span>
+                                    <span class="s0">color: Colors.black45</span>
+                                <span class="s0">),)),</span>
+                                <span class="s0">Divider(</span>
+                                  <span class="s0">height: </span><span class="s3">1</span><span class="s0">,</span>
+                                  <span class="s0">color: Colors.black45,</span>
+                                <span class="s0">),</span>
+
+                                <span class="s0">TextButton(onPressed: </span><span class="s2">null</span><span class="s0">, child: Text(</span><span class="s1">'Dilivery'</span><span class="s0">,style: TextStyle(</span>
+                                  <span class="s0">color: Colors.black45,</span>
+                                <span class="s0">),)</span>
+                                <span class="s0">),</span>
+
+
+
+                              <span class="s0">],</span>
+                            <span class="s0">),</span>
+                          <span class="s0">),</span>
+
+                        <span class="s0">)</span>
+                    <span class="s0">),</span>
+                  <span class="s0">);</span>
+                <span class="s0">}</span>
+                <span class="s2">return </span><span class="s0">Scaffold(</span>
+                  <span class="s0">body: Center(</span>
+                    <span class="s0">child: CircularProgressIndicator(),</span>
+                  <span class="s0">),</span>
+                <span class="s0">);</span>
+
+              <span class="s0">}</span>
+          <span class="s0">)</span>
+        <span class="s0">],</span>
+      <span class="s0">),</span>
+    <span class="s0">);</span>
+  <span class="s0">}</span>
+<span class="s0">}</span>
+</pre>
+</body>
+</html>

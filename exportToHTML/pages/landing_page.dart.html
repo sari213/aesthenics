@@ -1,0 +1,103 @@
+<html>
+<head>
+<title>landing_page.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #080808;}
+.s1 { color: #067d17;}
+.s2 { color: #0033b3;}
+.s3 { color: #8c8c8c; font-style: italic;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+landing_page.dart</font>
+</center></td></tr></table>
+<pre>
+<span class="s0">import </span><span class="s1">'package:aesthenics/pages/FinalHome.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/pages/introPage.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/utils/Constants.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:firebase_auth/firebase_auth.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:firebase_core/firebase_core.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:flutter/material.dart'</span><span class="s0">;</span>
+
+<span class="s2">class </span><span class="s0">LandingPage </span><span class="s2">extends </span><span class="s0">StatelessWidget {</span>
+  <span class="s2">final </span><span class="s0">Future&lt;FirebaseApp&gt; _initialization = Firebase.initializeApp();</span>
+
+  <span class="s0">@override</span>
+  <span class="s0">Widget build(BuildContext context) {</span>
+    <span class="s2">return </span><span class="s0">FutureBuilder(</span>
+      <span class="s0">future: _initialization,</span>
+      <span class="s0">builder: (context, snapshot) {</span>
+        <span class="s3">// If Firebase App init, snapshot has error</span>
+        <span class="s2">if </span><span class="s0">(snapshot.hasError) {</span>
+          <span class="s2">return </span><span class="s0">Scaffold(</span>
+            <span class="s0">body: Center(</span>
+              <span class="s0">child: Text(</span><span class="s1">&quot;Error: </span><span class="s0">${snapshot.error}</span><span class="s1">&quot;</span><span class="s0">),</span>
+            <span class="s0">),</span>
+          <span class="s0">);</span>
+        <span class="s0">}</span>
+
+        <span class="s3">// Connection Initialized - Firebase App is running</span>
+        <span class="s2">if </span><span class="s0">(snapshot.connectionState == ConnectionState.done) {</span>
+
+          <span class="s3">// StreamBuilder can check the login state live</span>
+          <span class="s2">return </span><span class="s0">StreamBuilder(</span>
+            <span class="s0">stream: FirebaseAuth.instance.authStateChanges(),</span>
+            <span class="s0">builder: (context, streamSnapshot) {</span>
+              <span class="s3">// If Stream Snapshot has error</span>
+              <span class="s2">if </span><span class="s0">(streamSnapshot.hasError) {</span>
+                <span class="s2">return </span><span class="s0">Scaffold(</span>
+                  <span class="s0">body: Center(</span>
+                    <span class="s0">child: Text(</span><span class="s1">&quot;Error: </span><span class="s0">${streamSnapshot.error}</span><span class="s1">&quot;</span><span class="s0">),</span>
+                  <span class="s0">),</span>
+                <span class="s0">);</span>
+              <span class="s0">}</span>
+
+              <span class="s3">// Connection state active - Do the user login check inside the</span>
+              <span class="s3">// if statement</span>
+              <span class="s2">if</span><span class="s0">(streamSnapshot.connectionState == ConnectionState.active) {</span>
+
+                <span class="s3">// Get the user</span>
+                <span class="s0">User _user = streamSnapshot.data;</span>
+
+                <span class="s3">// If the user is null, we're not logged in</span>
+                <span class="s2">if</span><span class="s0">(_user == </span><span class="s2">null</span><span class="s0">) {</span>
+                  <span class="s3">// user not logged in, head to login</span>
+                  <span class="s2">return </span><span class="s0">BackgroundVideo(</span>
+
+                  <span class="s0">);</span>
+                <span class="s0">} </span><span class="s2">else </span><span class="s0">{</span>
+                  <span class="s3">// The user is logged in, head to homepage</span>
+                  <span class="s2">return </span><span class="s0">FinalHome();</span>
+                <span class="s0">}</span>
+              <span class="s0">}</span>
+
+              <span class="s3">// Checking the auth state - Loading</span>
+              <span class="s2">return </span><span class="s0">Scaffold(</span>
+                <span class="s0">body: Center(</span>
+                  <span class="s0">child: CircularProgressIndicator()</span>
+                <span class="s0">),</span>
+              <span class="s0">);</span>
+            <span class="s0">},</span>
+          <span class="s0">);</span>
+        <span class="s0">}</span>
+
+        <span class="s3">// Connecting to Firebase - Loading</span>
+        <span class="s2">return </span><span class="s0">Scaffold(</span>
+          <span class="s0">body: Center(</span>
+            <span class="s0">child: Text(</span>
+              <span class="s1">&quot;Initialization App...&quot;</span><span class="s0">,</span>
+             <span class="s3">// style: Constants.regularHeading,</span>
+            <span class="s0">),</span>
+          <span class="s0">),</span>
+        <span class="s0">);</span>
+      <span class="s0">},</span>
+    <span class="s0">);</span>
+  <span class="s0">}</span>
+<span class="s0">}</span>
+</pre>
+</body>
+</html>

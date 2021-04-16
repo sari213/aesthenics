@@ -1,0 +1,102 @@
+<html>
+<head>
+<title>splashScreen.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #080808;}
+.s1 { color: #067d17;}
+.s2 { color: #0033b3;}
+.s3 { color: #8c8c8c; font-style: italic;}
+.s4 { color: #1750eb;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+splashScreen.dart</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">'dart:async'</span><span class="s0">;</span>
+
+
+<span class="s0">import </span><span class="s1">'package:flutter/cupertino.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:flutter/material.dart'</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">'introPage.dart'</span><span class="s0">;</span>
+
+<span class="s2">class </span><span class="s0">SplashScreen </span><span class="s2">extends </span><span class="s0">StatefulWidget {</span>
+  <span class="s0">@override</span>
+  <span class="s0">_SplashScreenState createState() =&gt; _SplashScreenState();</span>
+<span class="s0">}</span>
+
+<span class="s2">class </span><span class="s0">_SplashScreenState </span><span class="s2">extends </span><span class="s0">State&lt;SplashScreen&gt; {</span>
+  <span class="s0">@override</span>
+  <span class="s2">void </span><span class="s0">initState() {</span>
+    <span class="s2">super</span><span class="s0">.initState();</span>
+    <span class="s0">_getToken();</span>
+  <span class="s0">}</span>
+
+  <span class="s0">_getToken() async {</span>
+<span class="s3">//    SharedPreferences prefs = await SharedPreferences.getInstance();</span>
+<span class="s3">//    bool isLogin =</span>
+<span class="s3">//        prefs.getString(Constants.accessTokenStr) == null ? false : true;</span>
+<span class="s3">//    String isVerify =</span>
+<span class="s3">//    prefs.getString(Constants.emailVerifyStr) == null ? &quot;0&quot; : &quot;1&quot;;</span>
+<span class="s3">//    final provider=Provider.of&lt;NameFlag&gt;(context,listen: false);</span>
+<span class="s3">//    provider.setName(prefs.getString(Constants.firstNameStr), prefs.getString(Constants.lastNameStr));</span>
+<span class="s3">//    provider.setEmail(prefs.getString(Constants.emailStr));</span>
+
+    <span class="s0">Timer(Duration(seconds: </span><span class="s4">3</span><span class="s0">), () {</span>
+      <span class="s0">_goToMain(</span><span class="s2">false</span><span class="s0">,</span><span class="s1">&quot;1&quot;</span><span class="s0">);</span>
+    <span class="s0">});</span>
+  <span class="s0">}</span>
+
+  <span class="s0">_goToMain(bool isLogin,String isVerify) {</span>
+    <span class="s3">/*if (isLogin) { 
+ 
+      if(isVerify==&quot;1&quot;){ 
+        Navigator.pushReplacement( 
+          context, 
+          MaterialPageRoute(builder: (context) =&gt; HomeScreen()), 
+        ); 
+      }else{ 
+        Navigator.pushReplacement( 
+          context, 
+          MaterialPageRoute(builder: (context) =&gt; VerifyPage()), 
+        ); 
+      } 
+ 
+    } else {*/</span>
+    <span class="s0">Navigator.pushReplacement(</span>
+      <span class="s0">context,</span>
+      <span class="s0">CupertinoPageRoute(builder: (context) =&gt; BackgroundVideo()),</span>
+    <span class="s0">);</span>
+    <span class="s3">// }</span>
+  <span class="s0">}</span>
+
+  <span class="s0">@override</span>
+  <span class="s0">Widget build(BuildContext context) {</span>
+    <span class="s2">var </span><span class="s0">_data1 = MediaQuery.of(context).size.height;</span>
+    <span class="s2">return </span><span class="s0">Scaffold(</span>
+      <span class="s0">body: Container(</span>
+        <span class="s0">alignment: Alignment.center,</span>
+        <span class="s0">child: Column(</span>
+          <span class="s0">crossAxisAlignment: CrossAxisAlignment.center,</span>
+          <span class="s0">mainAxisSize: MainAxisSize.min,</span>
+          <span class="s0">children: [</span>
+            <span class="s0">Container(</span>
+              <span class="s0">height: </span><span class="s4">130</span><span class="s0">,</span>
+              <span class="s0">child: Image.asset(</span><span class="s1">'assets/images/AESTHENICSLOGO.png'</span><span class="s0">)),</span>
+            <span class="s0">SizedBox(height:  </span><span class="s4">60</span><span class="s0">),</span>
+            <span class="s0">CircularProgressIndicator(</span>
+              <span class="s0">valueColor:AlwaysStoppedAnimation&lt;Color&gt;(Colors.black),</span>
+            <span class="s0">)</span>
+          <span class="s0">],</span>
+        <span class="s0">),</span>
+      <span class="s0">),</span>
+    <span class="s0">);</span>
+  <span class="s0">}</span>
+<span class="s0">}</span>
+</pre>
+</body>
+</html>

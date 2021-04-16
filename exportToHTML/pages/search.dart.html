@@ -1,0 +1,151 @@
+<html>
+<head>
+<title>search.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #080808;}
+.s1 { color: #067d17;}
+.s2 { color: #0033b3;}
+.s3 { color: #1750eb;}
+.s4 { color: #8c8c8c; font-style: italic;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+search.dart</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">'package:aesthenics/pages/productPage.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/services/firebase_services.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/widgets/customInput.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/widgets/productCard.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:cloud_firestore/cloud_firestore.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:flutter/material.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:getwidget/components/search_bar/gf_search_bar.dart'</span><span class="s0">;</span>
+
+<span class="s2">class </span><span class="s0">search </span><span class="s2">extends </span><span class="s0">StatefulWidget {</span>
+  <span class="s0">@override</span>
+  <span class="s0">_searchState createState() =&gt; _searchState();</span>
+<span class="s0">}</span>
+
+<span class="s2">class </span><span class="s0">_searchState </span><span class="s2">extends </span><span class="s0">State&lt;search&gt; {</span>
+  <span class="s0">FirebaseServices _firebaseServices = FirebaseServices();</span>
+  <span class="s0">String _searchString = </span><span class="s1">&quot;&quot;</span><span class="s0">;</span>
+
+  <span class="s0">@override</span>
+  <span class="s0">Widget build(BuildContext context) {</span>
+    <span class="s2">return </span><span class="s0">Container(</span>
+      <span class="s0">child: Stack(</span>
+        <span class="s0">children: [</span>
+          <span class="s2">if </span><span class="s0">(_searchString.isEmpty)</span>
+            <span class="s0">Center(child: Text(</span><span class="s1">&quot;Search Results&quot;</span><span class="s0">))</span>
+          <span class="s2">else</span>
+          <span class="s0">FutureBuilder&lt;QuerySnapshot&gt;(</span>
+              <span class="s0">future: _firebaseServices.productsRef .orderBy(</span><span class="s1">&quot;name&quot;</span><span class="s0">)</span>
+                  <span class="s0">.startAt([_searchString]).endAt(</span>
+                  <span class="s0">[</span><span class="s1">&quot;</span><span class="s0">$_searchString</span><span class="s1">\uf8ff&quot;</span><span class="s0">]).get(),</span>
+              <span class="s0">builder: (context, snapshot){</span>
+                <span class="s2">if</span><span class="s0">(snapshot.hasError){</span>
+                  <span class="s2">return </span><span class="s0">SafeArea(</span>
+                    <span class="s0">child: Scaffold(</span>
+                      <span class="s0">body: Center(</span>
+                        <span class="s0">child: Text(</span><span class="s1">'SomethingWentWrong'</span><span class="s0">),</span>
+                      <span class="s0">),</span>
+                    <span class="s0">),</span>
+                  <span class="s0">);</span>
+
+
+                <span class="s0">}</span>
+                <span class="s2">if </span><span class="s0">(snapshot.connectionState == ConnectionState.done) {</span>
+                  <span class="s2">return </span><span class="s0">Scaffold(</span>
+                      <span class="s0">body: Center(</span>
+                        <span class="s0">child: ListView(</span>
+                          <span class="s0">padding: EdgeInsets.only(top: </span><span class="s3">108</span><span class="s0">,bottom: </span><span class="s3">24</span><span class="s0">,),</span>
+                          <span class="s0">children: snapshot.data.docs.map((document){</span>
+                            <span class="s2">return </span><span class="s0">Center(</span>
+                              <span class="s0">child: GestureDetector(</span>
+                                <span class="s0">onTap: (){</span>
+                                  <span class="s0">Navigator.push(</span>
+                                    <span class="s0">context,</span>
+                                    <span class="s0">MaterialPageRoute(builder: (context) =&gt; productPage(productId:document.id)),);</span>
+
+
+                                <span class="s0">},</span>
+                                <span class="s0">child: Container(</span>
+                                    <span class="s0">decoration: BoxDecoration(</span>
+                                        <span class="s0">borderRadius: BorderRadius.circular(</span><span class="s3">12.0</span><span class="s0">)</span>
+                                    <span class="s0">),</span>
+                                    <span class="s0">height: </span><span class="s3">250</span><span class="s0">,</span>
+
+
+                                    <span class="s0">margin: EdgeInsets.symmetric(</span>
+                                      <span class="s0">vertical: </span><span class="s3">12.0</span><span class="s0">,</span>
+                                      <span class="s0">horizontal: </span><span class="s3">24.0</span><span class="s0">,</span>
+                                    <span class="s0">),</span>
+
+
+                                    <span class="s0">child:Stack(</span>
+                                      <span class="s0">children: [</span>
+                                        <span class="s0">ClipRRect(</span>
+                                            <span class="s0">borderRadius: BorderRadius.circular(</span><span class="s3">12.0</span><span class="s0">),</span>
+                                            <span class="s0">child: Image.network(</span><span class="s1">&quot;</span><span class="s0">${document.data()[</span><span class="s1">'images'</span><span class="s0">][</span><span class="s3">0</span><span class="s0">]}</span><span class="s1">&quot;</span><span class="s0">,fit: BoxFit.cover,)),</span>
+                                        <span class="s0">Positioned(</span>
+                                          <span class="s0">bottom:</span><span class="s3">0</span><span class="s0">,</span>
+                                          <span class="s0">child: Column(</span>
+                                            <span class="s0">children: [</span>
+
+                                              <span class="s0">Text(document.data()[</span><span class="s1">'name'</span><span class="s0">],style: TextStyle(</span>
+                                                  <span class="s0">color: Colors.black45</span>
+                                              <span class="s0">),),</span>
+                                              <span class="s0">Text(document.data()[</span><span class="s1">'price'</span><span class="s0">],style: TextStyle(</span>
+                                                  <span class="s0">fontWeight: FontWeight.bold</span>
+                                              <span class="s0">),),</span>
+
+                                            <span class="s0">],</span>
+                                          <span class="s0">),</span>
+                                        <span class="s0">)</span>
+                                      <span class="s0">],</span>
+
+                                    <span class="s0">)</span>
+
+
+                                <span class="s0">),</span>
+                              <span class="s0">),</span>
+                            <span class="s0">);</span>
+
+                          <span class="s0">} ).toList(),</span>
+                        <span class="s0">),</span>
+                      <span class="s0">)</span>
+                  <span class="s0">);</span>
+                <span class="s0">}</span>
+                <span class="s2">return </span><span class="s0">Scaffold(</span>
+                  <span class="s0">body: Center(</span>
+                    <span class="s0">child: CircularProgressIndicator(),</span>
+                  <span class="s0">),</span>
+                <span class="s0">);</span>
+
+              <span class="s0">}</span>
+          <span class="s0">),</span>
+          <span class="s0">Padding(</span>
+            <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.only(top: </span><span class="s3">45</span><span class="s0">),</span>
+            <span class="s0">child: CustomInput (</span>
+              <span class="s0">hintText: </span><span class="s1">&quot;Search here...&quot;</span><span class="s0">,</span>
+              <span class="s0">onSubmitted: (value) {</span>
+                <span class="s2">if </span><span class="s0">(value.isNotEmpty){</span>
+                  <span class="s0">setState(() {</span>
+                    <span class="s0">_searchString = value.toLowerCase();</span>
+                  <span class="s0">});</span>
+
+                <span class="s0">}</span>
+              <span class="s0">},</span>
+            <span class="s0">),</span>
+          <span class="s0">),</span>
+         <span class="s4">// Center(child: Text('data')),</span>
+        <span class="s0">],</span>
+      <span class="s0">)</span>
+    <span class="s0">);</span>
+  <span class="s0">}</span>
+<span class="s0">}</span></pre>
+</body>
+</html>

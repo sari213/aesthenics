@@ -1,0 +1,87 @@
+<html>
+<head>
+<title>cart.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #080808;}
+.s1 { color: #067d17;}
+.s2 { color: #0033b3;}
+.s3 { color: #8c8c8c; font-style: italic;}
+.s4 { color: #1750eb;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+cart.dart</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">'package:aesthenics/Config/config.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/services/firebase_services.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/utils/AppColors.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:cloud_firestore/cloud_firestore.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:firebase_auth/firebase_auth.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:flutter/cupertino.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:flutter/material.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:provider/provider.dart'</span><span class="s0">;</span>
+
+<span class="s2">class </span><span class="s0">cart </span><span class="s2">extends </span><span class="s0">StatefulWidget {</span>
+  <span class="s2">final </span><span class="s0">String productId;</span>
+
+  <span class="s0">cart({</span><span class="s2">this</span><span class="s0">.productId});</span>
+  <span class="s0">@override</span>
+  <span class="s0">_cartState createState() =&gt; _cartState();</span>
+<span class="s0">}</span>
+
+<span class="s2">class </span><span class="s0">_cartState </span><span class="s2">extends </span><span class="s0">State&lt;cart&gt; {</span>
+  <span class="s2">final </span><span class="s0">CollectionReference _productsRef = FirebaseFirestore.instance.collection(</span><span class="s1">&quot;Products&quot;</span><span class="s0">);</span>
+  <span class="s0">@override</span>
+  <span class="s2">void </span><span class="s0">initState() {</span>
+    <span class="s3">// TODO: implement initState</span>
+    <span class="s2">super</span><span class="s0">.initState();</span>
+    <span class="s0">FirebaseAuth.instance.currentUser.uid;</span>
+  <span class="s0">}</span>
+  <span class="s0">FirebaseServices _firebaseServices = FirebaseServices();</span>
+  <span class="s0">@override</span>
+
+  <span class="s0">Widget build(BuildContext context) {</span>
+    <span class="s0">FirebaseServices _firebaseServices = FirebaseServices();</span>
+    <span class="s0">User user =  FirebaseAuth.instance.currentUser;</span>
+    <span class="s2">return new </span><span class="s0">StreamBuilder(</span>
+      <span class="s0">stream: getData(),</span>
+      <span class="s0">builder: (context,snapshot){</span>
+        <span class="s2">if </span><span class="s0">(!snapshot.hasData) </span><span class="s2">return const </span><span class="s0">Text(</span><span class="s1">&quot;Loading...&quot;</span><span class="s0">);</span>
+        <span class="s2">else if</span><span class="s0">(snapshot.hasData){</span>
+          <span class="s2">return </span><span class="s0">Container(</span>
+            <span class="s0">child: Column(</span>
+              <span class="s0">children: &lt;Widget&gt;[</span>
+                <span class="s0">ListView(</span>
+                 <span class="s0">children: [</span>
+                  <span class="s0">Text(snapshot.data[</span><span class="s1">&quot;name&quot;</span><span class="s0">].toString(),style: TextStyle(</span>
+              <span class="s0">color: Colors.black45,fontSize: </span><span class="s4">18</span>
+          <span class="s0">),),</span>
+                 <span class="s0">],</span>
+                <span class="s0">),</span>
+              <span class="s0">],</span>
+            <span class="s0">),</span>
+          <span class="s0">);</span>
+        <span class="s0">}</span>
+        <span class="s2">return </span><span class="s0">CircularProgressIndicator();</span>
+      <span class="s0">},</span>
+    <span class="s0">);</span>
+  <span class="s0">}</span>
+  <span class="s0">Stream&lt;DocumentSnapshot&gt; getData()async*{</span>
+    <span class="s3">//  var _firebaseAuth;</span>
+    <span class="s0">User user = await FirebaseAuth.instance.currentUser;</span>
+    <span class="s0">yield* FirebaseFirestore.instance.collection(</span><span class="s1">'Users'</span><span class="s0">).doc(user.uid).snapshots();</span>
+  <span class="s0">}</span>
+
+
+<span class="s0">}</span>
+
+
+
+
+</pre>
+</body>
+</html>

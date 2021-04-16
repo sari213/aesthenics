@@ -1,0 +1,164 @@
+<html>
+<head>
+<title>FinalHome.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #080808;}
+.s1 { color: #067d17;}
+.s2 { color: #0033b3;}
+.s3 { color: #1750eb;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+FinalHome.dart</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">'package:aesthenics/pages/Fhome.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/pages/basket.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/pages/cart.dart'</span><span class="s0">;</span>
+
+
+<span class="s0">import </span><span class="s1">'package:aesthenics/pages/home.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/pages/logIn.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/pages/profile.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/pages/search.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/providers/tab_provider.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/services/firebase_services.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/utils/Constants.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/utils/Utility.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:flutter/material.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:provider/provider.dart'</span><span class="s0">;</span>
+
+<span class="s2">class </span><span class="s0">FinalHome </span><span class="s2">extends </span><span class="s0">StatefulWidget {</span>
+  <span class="s0">@override</span>
+  <span class="s0">_FinalHomeState createState() =&gt; _FinalHomeState();</span>
+<span class="s0">}</span>
+
+<span class="s2">class  </span><span class="s0">_FinalHomeState </span><span class="s2">extends </span><span class="s0">State&lt;FinalHome&gt; {</span>
+  <span class="s0">FirebaseServices firebaseServices = FirebaseServices();</span>
+
+  <span class="s0">int currentTab =</span><span class="s3">0</span><span class="s0">;</span>
+
+  <span class="s0">@override</span>
+  <span class="s2">void </span><span class="s0">initState(){</span>
+    <span class="s0">print(</span><span class="s1">&quot;UserId: </span><span class="s0">${firebaseServices.getUserId()}</span><span class="s1">&quot;</span><span class="s0">);</span>
+    <span class="s2">super</span><span class="s0">.initState();</span>
+  <span class="s0">}</span>
+
+
+  <span class="s2">final </span><span class="s0">List&lt;Widget&gt; screens =[</span>
+    <span class="s0">search(),</span>
+    <span class="s0">logIn(),</span>
+    <span class="s0">Fhome(),</span>
+    <span class="s0">profile(),</span>
+    <span class="s0">cart()</span>
+  <span class="s0">];</span>
+  <span class="s0">Widget currentScreen = Fhome();</span>
+  <span class="s2">final </span><span class="s0">PageStorageBucket bucket = PageStorageBucket();</span>
+  <span class="s0">@override</span>
+  <span class="s0">Widget build(BuildContext context) {</span>
+    <span class="s2">return </span><span class="s0">Scaffold(</span>
+
+      <span class="s0">body:PageStorage(</span>
+        <span class="s0">child: currentScreen,</span>
+        <span class="s0">bucket: bucket,</span>
+      <span class="s0">) ,</span>
+      <span class="s0">bottomNavigationBar: BottomAppBar(</span>
+        <span class="s0">shape: CircularNotchedRectangle(),</span>
+        <span class="s0">child: Container(</span>
+          <span class="s0">height: </span><span class="s3">50</span><span class="s0">,</span>
+          <span class="s0">margin: EdgeInsetsDirectional.only(top: </span><span class="s3">10</span><span class="s0">),</span>
+          <span class="s0">child: Row(</span>
+            <span class="s0">mainAxisAlignment: MainAxisAlignment.spaceBetween,</span>
+            <span class="s0">crossAxisAlignment: CrossAxisAlignment.center,</span>
+            <span class="s0">children: [</span>
+              <span class="s0">MaterialButton(</span>
+                <span class="s0">minWidth: </span><span class="s3">40</span><span class="s0">,</span>
+                <span class="s0">onPressed: (){</span>
+                  <span class="s0">setState(() {</span>
+                    <span class="s0">currentScreen=Fhome();</span>
+                    <span class="s0">currentTab=</span><span class="s3">0</span><span class="s0">;</span>
+                  <span class="s0">});</span>
+                <span class="s0">},</span>
+                <span class="s0">child: Column(</span>
+                  <span class="s0">crossAxisAlignment: CrossAxisAlignment.center,</span>
+                  <span class="s0">children: [</span>
+                    <span class="s0">Icon(Icons.home,color: currentTab==</span><span class="s3">0</span><span class="s0">? Colors.black45: Colors.black, ),</span>
+                  <span class="s0">],</span>
+                <span class="s0">),</span>
+              <span class="s0">),</span>
+              <span class="s0">MaterialButton(</span>
+                <span class="s0">minWidth: </span><span class="s3">20</span><span class="s0">,</span>
+                <span class="s0">onPressed: (){</span>
+                  <span class="s0">setState(() {</span>
+                    <span class="s0">currentScreen=logIn(</span>
+                      <span class="s0">isbackVisible: </span><span class="s2">false</span><span class="s0">,</span>
+                    <span class="s0">);</span>
+                    <span class="s0">currentTab=</span><span class="s3">1</span><span class="s0">;</span>
+                  <span class="s0">});</span>
+                <span class="s0">},</span>
+                <span class="s0">child: Column(</span>
+                  <span class="s0">crossAxisAlignment: CrossAxisAlignment.center,</span>
+                  <span class="s0">children: [</span>
+                    <span class="s0">Icon(Icons.login,color: currentTab==</span><span class="s3">1</span><span class="s0">? Colors.black45: Colors.black, ),</span>
+
+                  <span class="s0">],</span>
+                <span class="s0">),</span>
+              <span class="s0">),</span>
+              <span class="s0">MaterialButton(</span>
+                <span class="s0">minWidth: </span><span class="s3">20</span><span class="s0">,</span>
+                <span class="s0">onPressed: (){</span>
+                  <span class="s0">setState(() {</span>
+                    <span class="s0">currentScreen=search();</span>
+                    <span class="s0">currentTab=</span><span class="s3">2</span><span class="s0">;</span>
+                  <span class="s0">});</span>
+                <span class="s0">},</span>
+                <span class="s0">child: Column(</span>
+                  <span class="s0">children: [</span>
+                    <span class="s0">Icon(Icons.search,color: currentTab==</span><span class="s3">2</span><span class="s0">?  Colors.black45: Colors.black, ),</span>
+
+                  <span class="s0">],</span>
+                <span class="s0">),</span>
+              <span class="s0">),</span>
+              <span class="s0">MaterialButton(</span>
+                <span class="s0">minWidth: </span><span class="s3">20</span><span class="s0">,</span>
+                <span class="s0">onPressed: (){</span>
+                  <span class="s0">setState(() {</span>
+                    <span class="s0">currentScreen=profile();</span>
+                    <span class="s0">currentTab=</span><span class="s3">3</span><span class="s0">;</span>
+                  <span class="s0">});</span>
+                <span class="s0">},</span>
+                <span class="s0">child: Column(</span>
+                  <span class="s0">children: [</span>
+                    <span class="s0">Icon(Icons.account_circle_rounded,color: currentTab==</span><span class="s3">3</span><span class="s0">? Colors.black45: Colors.black, ),</span>
+
+                  <span class="s0">],</span>
+                <span class="s0">),</span>
+              <span class="s0">),</span>
+              <span class="s0">MaterialButton(</span>
+                <span class="s0">minWidth: </span><span class="s3">20</span><span class="s0">,</span>
+                <span class="s0">onPressed: (){</span>
+                  <span class="s0">setState(() {</span>
+                    <span class="s0">currentScreen=cart();</span>
+                    <span class="s0">currentTab=</span><span class="s3">4</span><span class="s0">;</span>
+                  <span class="s0">});</span>
+                <span class="s0">},</span>
+                <span class="s0">child: Column(</span>
+                  <span class="s0">children: [</span>
+                    <span class="s0">Icon(Icons.shopping_cart,color: currentTab==</span><span class="s3">4</span><span class="s0">?  Colors.black45: Colors.black, ),</span>
+
+                  <span class="s0">],</span>
+                <span class="s0">),</span>
+              <span class="s0">)</span>
+            <span class="s0">],</span>
+          <span class="s0">),</span>
+        <span class="s0">),</span>
+      <span class="s0">),</span>
+    <span class="s0">);</span>
+  <span class="s0">}</span>
+<span class="s0">}</span>
+</pre>
+</body>
+</html>

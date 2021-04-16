@@ -1,0 +1,265 @@
+<html>
+<head>
+<title>pageview.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #080808;}
+.s1 { color: #067d17;}
+.s2 { color: #0033b3;}
+.s3 { color: #1750eb;}
+.s4 { color: #8c8c8c; font-style: italic;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+pageview.dart</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">'package:aesthenics/pages/about.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/pages/basket.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/pages/logIn.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/pages/menu.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/pages/menus.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/pages/sale.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:flutter/cupertino.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:flutter/material.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:smooth_page_indicator/smooth_page_indicator.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:tabbar/tabbar.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:flutter_signin_button/flutter_signin_button.dart'</span><span class="s0">;</span>
+
+<span class="s2">class </span><span class="s0">pageview </span><span class="s2">extends </span><span class="s0">StatefulWidget {</span>
+  <span class="s0">@override</span>
+  <span class="s0">_pageviewState createState() =&gt; _pageviewState();</span>
+<span class="s0">}</span>
+
+<span class="s2">class </span><span class="s0">_pageviewState </span><span class="s2">extends </span><span class="s0">State&lt;pageview&gt; {</span>
+
+  <span class="s0">PageController _controller;</span>
+  <span class="s0">int _currentPage = </span><span class="s3">0</span><span class="s0">;</span>
+
+  <span class="s0">@override</span>
+  <span class="s2">void </span><span class="s0">initState() {</span>
+    <span class="s0">_controller = PageController();</span>
+    <span class="s2">super</span><span class="s0">.initState();</span>
+  <span class="s0">}</span>
+  <span class="s2">final </span><span class="s0">controller = PageController();</span>
+  <span class="s0">@override</span>
+  <span class="s0">Widget build(BuildContext context) {</span>
+    <span class="s2">return </span><span class="s0">Container(</span>
+
+      <span class="s0">child: Stack(</span>
+        <span class="s0">children: [</span>
+          <span class="s0">PageView(</span>
+            <span class="s0">controller: _controller,</span>
+            <span class="s0">onPageChanged: (int page){</span>
+              <span class="s0">setState(() {</span>
+                <span class="s0">_currentPage=page;</span>
+              <span class="s0">});</span>
+            <span class="s0">},</span>
+
+            <span class="s4">//controller: pageViewController,</span>
+            <span class="s0">scrollDirection: Axis.horizontal,</span>
+            <span class="s0">children: [</span>
+              <span class="s0">Padding(</span>
+                <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.only(top: </span><span class="s3">500</span><span class="s0">),</span>
+                <span class="s0">child: Container(</span>
+                  <span class="s0">child: Column(</span>
+                    <span class="s0">children: [</span>
+                      <span class="s0">Center(</span>
+                        <span class="s0">child: Container(</span>
+                          <span class="s0">child: Text(</span><span class="s1">'A NEW WORLD OF TRAINING'</span><span class="s0">,style: TextStyle(</span>
+                            <span class="s0">fontWeight: FontWeight.bold,color: Colors.white,fontSize: </span><span class="s3">20</span>
+                          <span class="s0">),),</span>
+                        <span class="s0">),</span>
+                      <span class="s0">),</span>
+                      <span class="s0">SizedBox(height: </span><span class="s3">20</span><span class="s0">,),</span>
+                      <span class="s0">Center(</span>
+                        <span class="s0">child: Container(</span>
+                          <span class="s0">child: Text(</span><span class="s1">'Take your training to the next level,at the gym,at'</span><span class="s0">,style: TextStyle(</span>
+                            <span class="s0">color: Colors.white,fontSize: </span><span class="s3">16</span>
+                          <span class="s0">),),</span>
+                        <span class="s0">),</span>
+                      <span class="s0">),</span>
+                      <span class="s0">Center(</span>
+                        <span class="s0">child: Container(</span>
+                          <span class="s0">child: Text(</span><span class="s1">'home,at any time.'</span><span class="s0">,style: TextStyle(</span>
+                            <span class="s0">color: Colors.white,fontSize: </span><span class="s3">16</span>
+                          <span class="s0">),),</span>
+                        <span class="s0">),</span>
+                      <span class="s0">),</span>
+                    <span class="s0">],</span>
+                  <span class="s0">),</span>
+                <span class="s0">),</span>
+              <span class="s0">),</span>
+              <span class="s0">Padding(</span>
+                <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.only(top: </span><span class="s3">500</span><span class="s0">),</span>
+                <span class="s0">child: Container(</span>
+                  <span class="s0">child: Column(</span>
+                    <span class="s0">children: [</span>
+                      <span class="s0">Center(</span>
+                        <span class="s0">child: Container(</span>
+                          <span class="s0">child: Text(</span><span class="s1">'A NEW WORLD OF TRAINING'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">fontWeight: FontWeight.bold,color: Colors.white,fontSize: </span><span class="s3">20</span>
+                          <span class="s0">),),</span>
+                        <span class="s0">),</span>
+                      <span class="s0">),</span>
+                      <span class="s0">SizedBox(height: </span><span class="s3">20</span><span class="s0">,),</span>
+                      <span class="s0">Center(</span>
+                        <span class="s0">child: Container(</span>
+                          <span class="s0">child: Text(</span><span class="s1">'Take your training to the next level,at the gym,at'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">color: Colors.white,fontSize: </span><span class="s3">16</span>
+                          <span class="s0">),),</span>
+                        <span class="s0">),</span>
+                      <span class="s0">),</span>
+                      <span class="s0">Center(</span>
+                        <span class="s0">child: Container(</span>
+                          <span class="s0">child: Text(</span><span class="s1">'home,at any time.'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">color: Colors.white,fontSize: </span><span class="s3">16</span>
+                          <span class="s0">),),</span>
+                        <span class="s0">),</span>
+                      <span class="s0">),</span>
+                    <span class="s0">],</span>
+                  <span class="s0">),</span>
+                <span class="s0">),</span>
+              <span class="s0">),</span>
+              <span class="s0">Padding(</span>
+                <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.only(top: </span><span class="s3">500</span><span class="s0">),</span>
+                <span class="s0">child: Container(</span>
+                  <span class="s0">child: Column(</span>
+                    <span class="s0">children: [</span>
+                      <span class="s0">Center(</span>
+                        <span class="s0">child: Container(</span>
+                          <span class="s0">child: Text(</span><span class="s1">'A NEW WORLD OF TRAINING'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">fontWeight: FontWeight.bold,color: Colors.white,fontSize: </span><span class="s3">20</span>
+                          <span class="s0">),),</span>
+                        <span class="s0">),</span>
+                      <span class="s0">),</span>
+                      <span class="s0">SizedBox(height: </span><span class="s3">20</span><span class="s0">,),</span>
+                      <span class="s0">Center(</span>
+                        <span class="s0">child: Container(</span>
+                          <span class="s0">child: Text(</span><span class="s1">'Take your training to the next level,at the gym,at'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">color: Colors.white,fontSize: </span><span class="s3">16</span>
+                          <span class="s0">),),</span>
+                        <span class="s0">),</span>
+                      <span class="s0">),</span>
+                      <span class="s0">Center(</span>
+                        <span class="s0">child: Container(</span>
+                          <span class="s0">child: Text(</span><span class="s1">'home,at any time.'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">color: Colors.white,fontSize: </span><span class="s3">16</span>
+                          <span class="s0">),),</span>
+                        <span class="s0">),</span>
+                      <span class="s0">),</span>
+                    <span class="s0">],</span>
+                  <span class="s0">),</span>
+                <span class="s0">),</span>
+              <span class="s0">),</span>
+              <span class="s0">Padding(</span>
+                <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.only(top: </span><span class="s3">500</span><span class="s0">),</span>
+                <span class="s0">child: Container(</span>
+                  <span class="s0">child: Column(</span>
+                    <span class="s0">children: [</span>
+                      <span class="s0">Center(</span>
+                        <span class="s0">child: Container(</span>
+                          <span class="s0">child: Text(</span><span class="s1">'A NEW WORLD OF TRAINING'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">fontWeight: FontWeight.bold,color: Colors.white,fontSize: </span><span class="s3">20</span>
+                          <span class="s0">),),</span>
+                        <span class="s0">),</span>
+                      <span class="s0">),</span>
+                      <span class="s0">SizedBox(height: </span><span class="s3">20</span><span class="s0">,),</span>
+                      <span class="s0">Center(</span>
+                        <span class="s0">child: Container(</span>
+                          <span class="s0">child: Text(</span><span class="s1">'Take your training to the next level,at the gym,at'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">color: Colors.white,fontSize: </span><span class="s3">16</span>
+                          <span class="s0">),),</span>
+                        <span class="s0">),</span>
+                      <span class="s0">),</span>
+                      <span class="s0">Center(</span>
+                        <span class="s0">child: Container(</span>
+                          <span class="s0">child: Text(</span><span class="s1">'home,at any time.'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">color: Colors.white,fontSize: </span><span class="s3">16</span>
+                          <span class="s0">),),</span>
+                        <span class="s0">),</span>
+                      <span class="s0">),</span>
+                    <span class="s0">],</span>
+                  <span class="s0">),</span>
+                <span class="s0">),</span>
+              <span class="s0">),</span>
+              <span class="s0">Padding(</span>
+                <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.only(top: </span><span class="s3">500</span><span class="s0">),</span>
+                <span class="s0">child: Container(</span>
+                  <span class="s0">child: Column(</span>
+                    <span class="s0">children: [</span>
+                      <span class="s0">Center(</span>
+                        <span class="s0">child: Container(</span>
+                          <span class="s0">child: Text(</span><span class="s1">'A NEW WORLD OF TRAINING'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">fontWeight: FontWeight.bold,color: Colors.white,fontSize: </span><span class="s3">20</span>
+                          <span class="s0">),),</span>
+                        <span class="s0">),</span>
+                      <span class="s0">),</span>
+                      <span class="s0">SizedBox(height: </span><span class="s3">20</span><span class="s0">,),</span>
+                      <span class="s0">Center(</span>
+                        <span class="s0">child: Container(</span>
+                          <span class="s0">child: Text(</span><span class="s1">'Take your training to the next level,at the gym,at'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">color: Colors.white,fontSize: </span><span class="s3">16</span>
+                          <span class="s0">),),</span>
+                        <span class="s0">),</span>
+                      <span class="s0">),</span>
+                      <span class="s0">Center(</span>
+                        <span class="s0">child: Container(</span>
+                          <span class="s0">child: Text(</span><span class="s1">'home,at any time.'</span><span class="s0">,style: TextStyle(</span>
+                              <span class="s0">color: Colors.white,fontSize: </span><span class="s3">16</span>
+                          <span class="s0">),),</span>
+                        <span class="s0">),</span>
+                      <span class="s0">),</span>
+                    <span class="s0">],</span>
+                  <span class="s0">),</span>
+                <span class="s0">),</span>
+              <span class="s0">),</span>
+
+
+            <span class="s0">],</span>
+
+
+
+
+          <span class="s0">),</span>
+          <span class="s0">Align(</span>
+            <span class="s0">alignment: Alignment.bottomCenter,</span>
+            <span class="s0">child: Padding(</span>
+              <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.only(bottom: </span><span class="s3">100</span><span class="s0">),</span>
+              <span class="s0">child: Row(</span>
+                <span class="s0">crossAxisAlignment: CrossAxisAlignment.start,</span>
+                <span class="s0">mainAxisAlignment: MainAxisAlignment.center,</span>
+                <span class="s0">children: [</span>
+                  <span class="s0">SmoothPageIndicator(</span>
+                    <span class="s0">axisDirection: Axis.horizontal,</span>
+                    <span class="s0">controller: _controller,</span>
+                    <span class="s0">count: </span><span class="s3">5</span><span class="s0">,</span>
+                    <span class="s0">effect: SlideEffect(</span>
+                        <span class="s0">spacing:  </span><span class="s3">10</span><span class="s0">,</span>
+                        <span class="s0">radius:  </span><span class="s3">5</span><span class="s0">,</span>
+                        <span class="s0">dotWidth: </span><span class="s3">8</span><span class="s0">,</span>
+                        <span class="s0">dotHeight: </span><span class="s3">8</span><span class="s0">,</span>
+                        <span class="s0">dotColor: Colors.white,</span>
+                        <span class="s0">paintStyle: PaintingStyle.stroke,</span>
+                        <span class="s0">strokeWidth:  </span><span class="s3">1</span><span class="s0">,</span>
+                        <span class="s0">activeDotColor: Colors.white),</span>
+                  <span class="s0">),</span>
+                <span class="s0">],</span>
+              <span class="s0">),</span>
+            <span class="s0">),</span>
+          <span class="s0">),</span>
+
+
+        <span class="s0">],</span>
+
+      <span class="s0">),</span>
+
+    <span class="s0">);</span>
+  <span class="s0">}</span>
+
+<span class="s0">}</span>
+</pre>
+</body>
+</html>

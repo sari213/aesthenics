@@ -1,0 +1,72 @@
+<html>
+<head>
+<title>constants.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #080808;}
+.s1 { color: #067d17;}
+.s2 { color: #0033b3;}
+.s3 { color: #1750eb;}
+.s4 { color: #8c8c8c; font-style: italic;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+constants.dart</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">'package:aesthenics/pages/size_config.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:flutter/material.dart'</span><span class="s0">;</span>
+
+
+<span class="s2">const </span><span class="s0">kPrimaryColor = Color(</span><span class="s3">0xFFFF7643</span><span class="s0">);</span>
+<span class="s2">const </span><span class="s0">kPrimaryLightColor = Color(</span><span class="s3">0xFFFFECDF</span><span class="s0">);</span>
+<span class="s2">const </span><span class="s0">kPrimaryGradientColor = LinearGradient(</span>
+  <span class="s0">begin: Alignment.topLeft,</span>
+  <span class="s0">end: Alignment.bottomRight,</span>
+  <span class="s0">colors: [Color(</span><span class="s3">0xFFFFA53E</span><span class="s0">), Color(</span><span class="s3">0xFFFF7643</span><span class="s0">)],</span>
+<span class="s0">);</span>
+<span class="s2">const </span><span class="s0">kSecondaryColor = Color(</span><span class="s3">0xFF979797</span><span class="s0">);</span>
+<span class="s2">const </span><span class="s0">kTextColor = Color(</span><span class="s3">0xFF757575</span><span class="s0">);</span>
+
+<span class="s2">const </span><span class="s0">kAnimationDuration = Duration(milliseconds: </span><span class="s3">200</span><span class="s0">);</span>
+
+<span class="s2">final </span><span class="s0">headingStyle = TextStyle(</span>
+  <span class="s0">fontSize: getProportionateScreenWidth(</span><span class="s3">28</span><span class="s0">),</span>
+  <span class="s0">fontWeight: FontWeight.bold,</span>
+  <span class="s0">color: Colors.black,</span>
+  <span class="s0">height: </span><span class="s3">1.5</span><span class="s0">,</span>
+<span class="s0">);</span>
+
+<span class="s2">const </span><span class="s0">defaultDuration = Duration(milliseconds: </span><span class="s3">250</span><span class="s0">);</span>
+
+<span class="s4">// Form Error</span>
+<span class="s2">final </span><span class="s0">RegExp emailValidatorRegExp =</span>
+    <span class="s0">RegExp(</span><span class="s1">r&quot;^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+&quot;</span><span class="s0">);</span>
+<span class="s2">const </span><span class="s0">String kEmailNullError = </span><span class="s1">&quot;Please Enter your email&quot;</span><span class="s0">;</span>
+<span class="s2">const </span><span class="s0">String kInvalidEmailError = </span><span class="s1">&quot;Please Enter Valid Email&quot;</span><span class="s0">;</span>
+<span class="s2">const </span><span class="s0">String kPassNullError = </span><span class="s1">&quot;Please Enter your password&quot;</span><span class="s0">;</span>
+<span class="s2">const </span><span class="s0">String kShortPassError = </span><span class="s1">&quot;Password is too short&quot;</span><span class="s0">;</span>
+<span class="s2">const </span><span class="s0">String kMatchPassError = </span><span class="s1">&quot;Passwords don't match&quot;</span><span class="s0">;</span>
+<span class="s2">const </span><span class="s0">String kNamelNullError = </span><span class="s1">&quot;Please Enter your name&quot;</span><span class="s0">;</span>
+<span class="s2">const </span><span class="s0">String kPhoneNumberNullError = </span><span class="s1">&quot;Please Enter your phone number&quot;</span><span class="s0">;</span>
+<span class="s2">const </span><span class="s0">String kAddressNullError = </span><span class="s1">&quot;Please Enter your address&quot;</span><span class="s0">;</span>
+
+<span class="s2">final </span><span class="s0">otpInputDecoration = InputDecoration(</span>
+  <span class="s0">contentPadding:</span>
+      <span class="s0">EdgeInsets.symmetric(vertical: getProportionateScreenWidth(</span><span class="s3">15</span><span class="s0">)),</span>
+  <span class="s0">border: outlineInputBorder(),</span>
+  <span class="s0">focusedBorder: outlineInputBorder(),</span>
+  <span class="s0">enabledBorder: outlineInputBorder(),</span>
+<span class="s0">);</span>
+
+<span class="s0">OutlineInputBorder outlineInputBorder() {</span>
+  <span class="s2">return </span><span class="s0">OutlineInputBorder(</span>
+    <span class="s0">borderRadius: BorderRadius.circular(getProportionateScreenWidth(</span><span class="s3">15</span><span class="s0">)),</span>
+    <span class="s0">borderSide: BorderSide(color: kTextColor),</span>
+  <span class="s0">);</span>
+<span class="s0">}</span>
+</pre>
+</body>
+</html>

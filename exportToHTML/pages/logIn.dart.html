@@ -1,0 +1,304 @@
+<html>
+<head>
+<title>logIn.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #080808;}
+.s1 { color: #067d17;}
+.s2 { color: #0033b3;}
+.s3 { color: #8c8c8c; font-style: italic;}
+.s4 { color: #1750eb;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+logIn.dart</font>
+</center></td></tr></table>
+<pre>
+<span class="s0">import </span><span class="s1">'package:aesthenics/Admin/adminLogin.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/pages/FinalHome.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/utils/AppColors.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:flutter/material.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:firebase_auth/firebase_auth.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'forgot_password.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'home.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'homePage.dart'</span><span class="s0">;</span>
+
+<span class="s2">class </span><span class="s0">logIn </span><span class="s2">extends </span><span class="s0">StatefulWidget {</span>
+  <span class="s0">bool isbackVisible;</span>
+  <span class="s0">bool _isObscure = </span><span class="s2">true</span><span class="s0">;</span>
+
+
+   <span class="s0">logIn({Key key, </span><span class="s2">this</span><span class="s0">.isbackVisible}) : </span><span class="s2">super</span><span class="s0">(key: key);</span>
+
+  <span class="s0">@override</span>
+  <span class="s0">_logInState createState() =&gt; _logInState(</span>
+    <span class="s2">this</span><span class="s0">.isbackVisible</span>
+  <span class="s0">);</span>
+<span class="s0">}</span>
+
+<span class="s2">class </span><span class="s0">_logInState </span><span class="s2">extends </span><span class="s0">State&lt;logIn&gt; {</span>
+  <span class="s0">String email =</span><span class="s1">&quot;&quot;</span><span class="s0">;</span>
+  <span class="s0">String password=</span><span class="s1">&quot;&quot;</span><span class="s0">;</span>
+  <span class="s0">bool registerForm = </span><span class="s2">false</span><span class="s0">;</span>
+
+  <span class="s0">TextEditingController nameController = TextEditingController();</span>
+  <span class="s0">TextEditingController passwordController = TextEditingController();</span>
+
+  <span class="s0">Future&lt;</span><span class="s2">void</span><span class="s0">&gt;_alertDialogBuilder(String error)async{</span>
+
+    <span class="s2">return </span><span class="s0">showDialog(context: context,</span>
+        <span class="s0">barrierDismissible: </span><span class="s2">false</span><span class="s0">,</span>
+        <span class="s0">builder: (context){</span>
+          <span class="s2">return </span><span class="s0">AlertDialog(</span>
+            <span class="s0">title: Text(</span><span class="s1">'Error'</span><span class="s0">),</span>
+            <span class="s0">content: Container(</span>
+              <span class="s0">child: Text(</span><span class="s1">'error'</span><span class="s0">),</span>
+            <span class="s0">),</span>
+            <span class="s0">actions: [</span>
+              <span class="s0">FlatButton(onPressed:(){</span>
+                <span class="s0">Navigator.pop(context);</span>
+              <span class="s0">}, child: Text(</span><span class="s1">'close'</span><span class="s0">))</span>
+            <span class="s0">],</span>
+          <span class="s0">);</span>
+        <span class="s0">}</span>
+
+
+    <span class="s0">);</span>
+  <span class="s0">}</span>
+  <span class="s0">Future&lt;String&gt;logInAccount()async {</span>
+    <span class="s2">try </span><span class="s0">{</span>
+      <span class="s0">await FirebaseAuth.instance.signInWithEmailAndPassword(</span>
+          <span class="s0">email: email, password: password);</span>
+      <span class="s2">return null</span><span class="s0">;</span>
+    <span class="s0">} on FirebaseAuthException </span><span class="s2">catch</span><span class="s0">(e){</span>
+      <span class="s2">if </span><span class="s0">(e.code == </span><span class="s1">'weak-password'</span><span class="s0">) {</span>
+        <span class="s2">return</span><span class="s0">(</span><span class="s1">'The password provided is too weak.'</span><span class="s0">);</span>
+      <span class="s0">} </span><span class="s2">else if </span><span class="s0">(e.code == </span><span class="s1">'email-already-in-use'</span><span class="s0">) {</span>
+        <span class="s2">return</span><span class="s0">(</span><span class="s1">'The account already exists for that email.'</span><span class="s0">);</span>
+      <span class="s0">}</span>
+      <span class="s2">return </span><span class="s0">e.message;</span>
+    <span class="s0">}</span>
+    <span class="s2">catch</span><span class="s0">(e){</span>
+      <span class="s2">return </span><span class="s0">e.toString();</span>
+    <span class="s0">}</span>
+  <span class="s0">}</span>
+  <span class="s2">void </span><span class="s0">submitForm() async{</span>
+    <span class="s0">setState(() {</span>
+      <span class="s0">registerForm = </span><span class="s2">true </span><span class="s0">;</span>
+    <span class="s0">});</span>
+    <span class="s0">String signInAccountFeedback = await logInAccount();</span>
+    <span class="s2">if</span><span class="s0">(signInAccountFeedback != </span><span class="s2">null</span><span class="s0">){</span>
+      <span class="s0">_alertDialogBuilder(signInAccountFeedback);</span>
+
+
+      <span class="s0">setState(() {</span>
+        <span class="s0">registerForm = </span><span class="s2">false</span><span class="s0">;</span>
+      <span class="s0">});}</span>
+    <span class="s2">else</span><span class="s0">{</span>
+      <span class="s0">Navigator.push(</span>
+        <span class="s0">context,</span>
+        <span class="s0">MaterialPageRoute(builder: (context) =&gt; FinalHome()),</span>
+      <span class="s0">);</span>
+    <span class="s0">}</span>
+  <span class="s0">}</span>
+  <span class="s0">bool isbackVisible;</span>
+  <span class="s0">_logInState(</span><span class="s2">this</span><span class="s0">.isbackVisible);</span>
+
+
+  <span class="s0">@override</span>
+  <span class="s2">void </span><span class="s0">initState() {</span>
+    <span class="s2">if</span><span class="s0">(widget.isbackVisible==</span><span class="s2">null</span><span class="s0">){</span>
+      <span class="s0">widget.isbackVisible=</span><span class="s2">false</span><span class="s0">;</span>
+    <span class="s0">}</span>
+    <span class="s3">// TODO: implement initState</span>
+
+    <span class="s2">super</span><span class="s0">.initState();</span>
+  <span class="s0">}</span>
+  <span class="s0">bool _isObscure = </span><span class="s2">true</span><span class="s0">;</span>
+
+  <span class="s0">@override</span>
+  <span class="s0">Widget build(BuildContext context) {</span>
+
+    <span class="s2">return </span><span class="s0">Scaffold(</span>
+      <span class="s0">backgroundColor: Colors.white,</span>
+      <span class="s0">appBar: AppBar(</span>
+        <span class="s0">backgroundColor: Colors.white,</span>
+        <span class="s0">leading: isbackVisible?IconButton(icon: Icon(Icons.arrow_back),color: Colors.black,onPressed: ()=&gt; Navigator.pop(context),):Container(),</span>
+        <span class="s0">title: Text(</span><span class="s1">&quot;LOG IN&quot;</span><span class="s0">,style: TextStyle(</span>
+            <span class="s0">color: Colors.black</span>
+        <span class="s0">),),</span>
+      <span class="s0">),</span>
+      <span class="s0">body: SingleChildScrollView(</span>
+        <span class="s0">child: Column(</span>
+          <span class="s0">children: &lt;Widget&gt;[</span>
+            <span class="s3">//</span>
+            <span class="s0">SizedBox(</span>
+              <span class="s0">height: </span><span class="s4">30</span><span class="s0">,</span>
+            <span class="s0">),</span>
+            <span class="s0">Container(</span>
+                <span class="s0">height: </span><span class="s4">50</span><span class="s0">,</span>
+                <span class="s0">width: </span><span class="s4">50</span><span class="s0">,</span>
+                <span class="s0">child: Image.asset(</span><span class="s1">'assets/images/AESTHENICSLOGO.png'</span><span class="s0">)),</span>
+            <span class="s0">Container(</span>
+              <span class="s3">//height: 50,</span>
+                <span class="s0">width: </span><span class="s4">100</span><span class="s0">,</span>
+                <span class="s0">child: Image.asset(</span><span class="s1">'assets/images/name.png'</span><span class="s0">)),</span>
+            <span class="s0">SizedBox(</span>
+              <span class="s0">height: </span><span class="s4">30</span><span class="s0">,</span>
+            <span class="s0">),</span>
+            <span class="s0">Text(</span><span class="s1">&quot;WELCOME TO&quot;</span><span class="s0">,style: TextStyle(</span>
+              <span class="s0">fontSize: </span><span class="s4">20</span><span class="s0">,fontWeight: FontWeight.bold,</span>
+            <span class="s0">),),</span>
+            <span class="s0">Text(</span><span class="s1">&quot;AESTHENICS TRAINING&quot;</span><span class="s0">,style: TextStyle(</span>
+              <span class="s0">fontSize: </span><span class="s4">20</span><span class="s0">,fontWeight: FontWeight.bold,</span>
+            <span class="s0">)),</span>
+            <span class="s0">SizedBox(</span>
+              <span class="s0">height: </span><span class="s4">20</span><span class="s0">,</span>
+            <span class="s0">),</span>
+            <span class="s0">Text(</span><span class="s1">&quot;HOME OF CONDITIONING COMMUNITY&quot;</span><span class="s0">),</span>
+            <span class="s0">SizedBox(</span>
+              <span class="s0">height: </span><span class="s4">60</span><span class="s0">,</span>
+            <span class="s0">),</span>
+            <span class="s0">Padding(</span>
+              <span class="s0">padding: EdgeInsets.symmetric(horizontal: </span><span class="s4">15</span><span class="s0">),</span>
+              <span class="s0">child: Align(</span>
+                  <span class="s0">alignment: Alignment.centerLeft,</span>
+                  <span class="s0">child: Text(</span><span class="s1">&quot;Email&quot;</span><span class="s0">,style: TextStyle(</span>
+                      <span class="s0">fontSize: </span><span class="s4">14</span><span class="s0">,fontWeight: FontWeight.bold</span>
+                  <span class="s0">),)),</span>
+            <span class="s0">),</span>
+            <span class="s0">SizedBox(</span>
+              <span class="s0">height: </span><span class="s4">10</span><span class="s0">,</span>
+            <span class="s0">),</span>
+            <span class="s0">Padding(</span>
+              <span class="s3">//padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),</span>
+              <span class="s0">padding: EdgeInsets.symmetric(horizontal: </span><span class="s4">15</span><span class="s0">),</span>
+              <span class="s0">child: Container(</span>
+                <span class="s0">height: </span><span class="s4">40</span><span class="s0">,</span>
+                <span class="s0">child: TextField(</span>
+                  <span class="s0">controller: nameController,</span>
+                  <span class="s0">onChanged: (value){</span>
+                    <span class="s0">email= value;</span>
+                  <span class="s0">},</span>
+                  <span class="s0">cursorColor: Colors.black,</span>
+                  <span class="s0">decoration: InputDecoration(</span>
+                    <span class="s0">contentPadding: EdgeInsets.all(</span><span class="s4">4</span><span class="s0">),</span>
+                    <span class="s0">focusedBorder: OutlineInputBorder(</span>
+                      <span class="s0">borderSide: BorderSide(color: Colors.black),</span>
+                    <span class="s0">),</span>
+                    <span class="s3">// fillColor: Colors.grey,</span>
+                    <span class="s0">border: OutlineInputBorder(</span>
+                      <span class="s0">borderSide: BorderSide(color:Colors.black ),</span>
+                    <span class="s0">),</span>
+
+                    <span class="s3">/*labelText: 'Email', 
+                      hintText: 'Enter valid email id as abc@gmail.com'*/</span>
+                  <span class="s0">),</span>
+                <span class="s0">),</span>
+              <span class="s0">),</span>
+            <span class="s0">),</span>
+            <span class="s0">SizedBox(</span>
+              <span class="s0">height: </span><span class="s4">10</span><span class="s0">,</span>
+            <span class="s0">),</span>
+            <span class="s0">Padding(</span>
+              <span class="s0">padding: EdgeInsets.symmetric(horizontal: </span><span class="s4">15</span><span class="s0">),</span>
+              <span class="s0">child: Align(</span>
+                  <span class="s0">alignment: Alignment.centerLeft,</span>
+                  <span class="s0">child: Row(</span>
+                    <span class="s0">children: [</span>
+                      <span class="s0">Expanded(</span>
+                        <span class="s0">child: Text(</span><span class="s1">&quot;PASSWORD&quot;</span><span class="s0">,style: TextStyle(</span>
+                            <span class="s0">fontSize: </span><span class="s4">12</span><span class="s0">,fontWeight: FontWeight.bold</span>
+                        <span class="s0">),),</span>
+                      <span class="s0">),</span>
+
+                      <span class="s0">Expanded(</span>
+                        <span class="s0">child: FlatButton(</span>
+                          <span class="s0">onPressed: () {</span>
+                            <span class="s0">Navigator.push(</span>
+                              <span class="s0">context,</span>
+                              <span class="s0">MaterialPageRoute(builder: (context) =&gt; forgot_password()),</span>
+                            <span class="s0">);</span>
+                          <span class="s0">},</span>
+                          <span class="s0">child: Text(</span>
+                            <span class="s1">'Forgot Password?'</span><span class="s0">,</span>
+                            <span class="s0">style: TextStyle(color: Colors.grey, fontSize: </span><span class="s4">12</span><span class="s0">),</span>
+                          <span class="s0">),</span>
+                        <span class="s0">),</span>
+                      <span class="s0">),</span>
+                    <span class="s0">],</span>
+                  <span class="s0">)),</span>
+            <span class="s0">),</span>
+            <span class="s0">Padding(</span>
+              <span class="s3">//padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),</span>
+              <span class="s0">padding: EdgeInsets.symmetric(horizontal: </span><span class="s4">15</span><span class="s0">),</span>
+              <span class="s0">child: Container(</span>
+                <span class="s0">height: </span><span class="s4">40</span><span class="s0">,</span>
+                <span class="s0">child: TextField(</span>
+                  <span class="s0">controller: passwordController,</span>
+                  <span class="s0">onChanged: (value){</span>
+                    <span class="s0">password= value;</span>
+                  <span class="s0">},</span>
+                  <span class="s0">obscureText: _isObscure,</span>
+                  <span class="s0">cursorColor: Colors.black,</span>
+                  <span class="s0">decoration: InputDecoration(</span>
+                    <span class="s0">contentPadding: EdgeInsets.all(</span><span class="s4">4</span><span class="s0">),</span>
+                      <span class="s0">suffixIcon: IconButton(</span>
+                          <span class="s0">icon: Icon(</span>
+                              <span class="s0">_isObscure ? Icons.visibility_off : Icons.visibility,color: Colors.black,),</span>
+                          <span class="s0">onPressed: () {</span>
+                            <span class="s0">setState(() {</span>
+                              <span class="s0">_isObscure = !_isObscure;</span>
+                            <span class="s0">});</span>
+                          <span class="s0">}),</span>
+                    <span class="s0">focusedBorder: OutlineInputBorder(</span>
+                        <span class="s0">borderSide: BorderSide(color: Colors.black)</span>
+                    <span class="s0">),</span>
+                    <span class="s0">border: OutlineInputBorder(),</span>
+                    <span class="s3">/*labelText: 'Email', 
+                      hintText: 'Enter valid email id as abc@gmail.com'*/</span>
+                  <span class="s0">),</span>
+                <span class="s0">),</span>
+              <span class="s0">),</span>
+            <span class="s0">),</span>
+            <span class="s0">SizedBox(</span>
+              <span class="s0">height: </span><span class="s4">20</span><span class="s0">,</span>
+            <span class="s0">),</span>
+            <span class="s0">Padding(</span>
+              <span class="s0">padding: EdgeInsets.symmetric(horizontal: </span><span class="s4">15</span><span class="s0">),</span>
+              <span class="s0">child: Container(</span>
+                <span class="s0">height: </span><span class="s4">40</span><span class="s0">,</span>
+                <span class="s0">width: </span><span class="s4">370</span><span class="s0">,</span>
+                <span class="s0">decoration: BoxDecoration(</span>
+                    <span class="s0">color: AppColors.bg2, borderRadius: BorderRadius.circular(</span><span class="s4">20</span><span class="s0">)),</span>
+                <span class="s0">child: FlatButton(</span>
+                  <span class="s0">onPressed: ()async {</span>
+                    <span class="s0">submitForm();</span>
+
+                  <span class="s0">},</span>
+                  <span class="s0">child: Text(</span>
+                    <span class="s1">'LOG IN'</span><span class="s0">,</span>
+                    <span class="s0">style: TextStyle(color: Colors.black45, fontSize: </span><span class="s4">14</span><span class="s0">,fontWeight: FontWeight.bold),</span>
+                  <span class="s0">),</span>
+                <span class="s0">),</span>
+              <span class="s0">),</span>
+            <span class="s0">),</span>
+            <span class="s0">FlatButton.icon(onPressed: ()=&gt; Navigator.push(context, MaterialPageRoute(builder: (context)=&gt;AdminSignInPage())),</span>
+              <span class="s0">icon: (Icon(Icons.nature_people,color: Colors.black,)),</span>
+              <span class="s0">label: Text(</span><span class="s1">&quot;I am Admin&quot;</span><span class="s0">,style: TextStyle(</span>
+                  <span class="s0">color: Colors.black,fontWeight: FontWeight.bold</span>
+              <span class="s0">),),</span>
+            <span class="s0">)</span>
+
+          <span class="s0">],</span>
+        <span class="s0">),</span>
+      <span class="s0">),</span>
+    <span class="s0">);</span>
+  <span class="s0">}</span>
+<span class="s0">}</span>
+</pre>
+</body>
+</html>

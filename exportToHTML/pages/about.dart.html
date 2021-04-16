@@ -1,0 +1,107 @@
+<html>
+<head>
+<title>about.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #080808;}
+.s1 { color: #067d17;}
+.s2 { color: #0033b3;}
+.s3 { color: #8c8c8c; font-style: italic;}
+.s4 { color: #1750eb;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+about.dart</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">'package:flutter/cupertino.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:flutter/material.dart'</span><span class="s0">;</span>
+
+<span class="s2">class </span><span class="s0">about </span><span class="s2">extends </span><span class="s0">StatefulWidget {</span>
+  <span class="s0">@override</span>
+  <span class="s0">_aboutState createState() =&gt; _aboutState();</span>
+<span class="s0">}</span>
+
+<span class="s2">class </span><span class="s0">_aboutState </span><span class="s2">extends </span><span class="s0">State&lt;about&gt; {</span>
+  <span class="s0">@override</span>
+  <span class="s0">Widget build(BuildContext context) {</span>
+    <span class="s2">return </span><span class="s0">SafeArea(</span>
+      <span class="s0">child: Scaffold(</span>
+        <span class="s0">body: Container(</span>
+          <span class="s0">child: SingleChildScrollView(</span>
+            <span class="s0">child: Column(</span>
+             <span class="s3">// mainAxisAlignment: MainAxisAlignment.start,</span>
+              <span class="s0">crossAxisAlignment: CrossAxisAlignment.start,</span>
+              <span class="s0">children: [</span>
+
+
+                <span class="s0">Container(</span>
+                  <span class="s0">height: </span><span class="s4">100</span><span class="s0">,</span>
+                  <span class="s0">width: double.infinity,</span>
+                  <span class="s0">color: Colors.black,</span>
+                  <span class="s0">child: Center(</span>
+                    <span class="s0">child: Text(</span><span class="s1">'OUR STORY'</span><span class="s0">,style: TextStyle(</span>
+                      <span class="s0">fontSize: </span><span class="s4">30</span><span class="s0">,fontWeight: FontWeight.bold,color: Colors.white</span>
+                    <span class="s0">),),</span>
+                  <span class="s0">),</span>
+                <span class="s0">),</span>
+                <span class="s0">SizedBox(height: </span><span class="s4">10</span><span class="s0">,),</span>
+                <span class="s0">Padding(</span>
+                  <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.all(</span><span class="s4">8.0</span><span class="s0">),</span>
+                  <span class="s0">child: Container(</span>
+                    <span class="s0">child: Text(</span><span class="s1">'ABOUT US'</span><span class="s0">,style: TextStyle(</span>
+                      <span class="s0">fontSize: </span><span class="s4">20</span><span class="s0">,fontWeight: FontWeight.bold</span>
+                    <span class="s0">),),</span>
+                  <span class="s0">),</span>
+                <span class="s0">),</span>
+                <span class="s0">SizedBox(height: </span><span class="s4">10</span><span class="s0">,),</span>
+                <span class="s0">Padding(</span>
+                  <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.all(</span><span class="s4">8.0</span><span class="s0">),</span>
+                  <span class="s0">child: Container(</span>
+                    <span class="s0">child: Text(</span><span class="s1">'We were a pair of college students and entrepreneur from India with a passion for fitness and fashion. As years went by, we became more and more involved in fitness because it was the best release for hectic and stressful routines. We found ourselves frustrated and perplexed by how difficult it was to find the best in class gym wear that could stand up to seriously intense workouts and also give off a superb look. '</span><span class="s0">,style: TextStyle(</span>
+
+                    <span class="s0">),),</span>
+                  <span class="s0">),</span>
+                <span class="s0">),</span>
+                <span class="s0">SizedBox(height: </span><span class="s4">10</span><span class="s0">,),</span>
+                <span class="s0">Padding(</span>
+                  <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.all(</span><span class="s4">8.0</span><span class="s0">),</span>
+                  <span class="s0">child: Container(</span>
+                    <span class="s0">child: Text(</span><span class="s1">'That’s when we got the idea for AESTHENICS.  It was clear to us that many of the big brands were already offering best in class quality. However, their products were too expensive. We set out to challenge to offer gym gear with similar best in class quality and style but most importantly, at a reasonable rate which is affordable to everyone.'</span><span class="s0">)</span>
+                  <span class="s0">),</span>
+                <span class="s0">),</span>
+                <span class="s0">SizedBox(height: </span><span class="s4">10</span><span class="s0">,),</span>
+                <span class="s0">Padding(</span>
+                  <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.all(</span><span class="s4">8.0</span><span class="s0">),</span>
+                  <span class="s0">child: Container(</span>
+                    <span class="s0">child: Text(</span><span class="s1">'Every product on our shop has been designed for active life from fit to stitch to fabric with gym goers in mind, and to fulfill our vision of what gym wear should be. Born in India, we have enlisted loads of Indian trainers and everyday gym goers in our local community to help us design our products, select our fabrics and other materials. And we have loved every minute of it.'</span><span class="s0">),</span>
+                  <span class="s0">),</span>
+                <span class="s0">),</span>
+                <span class="s0">SizedBox(height: </span><span class="s4">10</span><span class="s0">,),</span>
+                <span class="s0">Padding(</span>
+                  <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.all(</span><span class="s4">8.0</span><span class="s0">),</span>
+                  <span class="s0">child: Container(</span>
+                    <span class="s0">child: Text(</span><span class="s1">'It comes down to this: We believe that good things come to those who sweat, and that good gym wear should help you feel good and look good while you sweat.'</span><span class="s0">),</span>
+                  <span class="s0">),</span>
+                <span class="s0">),</span>
+                <span class="s0">SizedBox(height: </span><span class="s4">10</span><span class="s0">,),</span>
+                <span class="s0">Padding(</span>
+                  <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.all(</span><span class="s4">8.0</span><span class="s0">),</span>
+                  <span class="s0">child: Container(</span>
+                   <span class="s0">child: Text(</span><span class="s1">'That’s our story. We are AESTHENICS.  Born in India. Engineered for GYM.'</span><span class="s0">),</span>
+                  <span class="s0">),</span>
+                <span class="s0">),</span>
+
+              <span class="s0">],</span>
+            <span class="s0">),</span>
+          <span class="s0">),</span>
+        <span class="s0">),</span>
+      <span class="s0">),</span>
+    <span class="s0">);</span>
+  <span class="s0">}</span>
+<span class="s0">}</span>
+</pre>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<html>
+<head>
+<title>home.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #080808;}
+.s1 { color: #067d17;}
+.s2 { color: #0033b3;}
+.s3 { color: #1750eb;}
+.s4 { color: #8c8c8c; font-style: italic;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+home.dart</font>
+</center></td></tr></table>
+<pre>
+<span class="s0">import </span><span class="s1">'package:aesthenics/pages/logIn.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/pages/man.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/pages/profile.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/pages/search.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/pages/women.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:flutter/material.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:flutter/rendering.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:page_view_indicators/arrow_page_indicator.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:smooth_page_indicator/smooth_page_indicator.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:tabbar/tabbar.dart'</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">'basket.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'menu.dart'</span><span class="s0">;</span>
+
+<span class="s2">class </span><span class="s0">Home </span><span class="s2">extends </span><span class="s0">StatefulWidget {</span>
+  <span class="s0">@override</span>
+  <span class="s0">_HomeState createState() =&gt; _HomeState();</span>
+<span class="s0">}</span>
+
+<span class="s2">class </span><span class="s0">_HomeState </span><span class="s2">extends </span><span class="s0">State&lt;Home&gt; {</span>
+  <span class="s0">PageController _controller;</span>
+  <span class="s0">int _currentPage = </span><span class="s3">0</span><span class="s0">;</span>
+
+  <span class="s0">@override</span>
+  <span class="s2">void </span><span class="s0">initState() {</span>
+    <span class="s0">_controller = PageController();</span>
+    <span class="s2">super</span><span class="s0">.initState();</span>
+  <span class="s0">}</span>
+
+  <span class="s0">@override</span>
+  <span class="s0">Widget build(BuildContext context) {</span>
+    <span class="s2">return </span><span class="s0">Scaffold(</span>
+
+        <span class="s0">body:Stack(</span>
+          <span class="s0">children: [</span>
+
+            <span class="s0">Padding(</span>
+              <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.only(top: </span><span class="s3">50</span><span class="s0">),</span>
+              <span class="s0">child: TabbarHeader(</span>
+                <span class="s4">//indicatorColor: Colors.black,</span>
+                <span class="s0">foregroundColor: Colors.black,</span>
+                <span class="s0">backgroundColor: Colors.white,</span>
+                <span class="s0">controller: _controller,</span>
+                <span class="s0">tabs: [</span>
+
+                  <span class="s0">Tab(</span>
+                    <span class="s0">child: TextButton(onPressed: (){ Navigator.push(</span>
+                      <span class="s0">context,</span>
+                      <span class="s0">MaterialPageRoute(builder: (context) =&gt; women()),</span>
+                    <span class="s0">);},child: Text(</span>
+                      <span class="s1">&quot;WOMAN&quot;</span><span class="s0">,</span>
+                      <span class="s0">style: TextStyle(color: Colors.black,fontSize: </span><span class="s3">20</span><span class="s0">),</span>
+                    <span class="s0">),</span>
+                    <span class="s0">),</span>
+                  <span class="s0">),</span>
+                  <span class="s0">Tab(</span>
+                    <span class="s0">child: TextButton(onPressed: (){ Navigator.push(</span>
+                      <span class="s0">context,</span>
+                      <span class="s0">MaterialPageRoute(builder: (context) =&gt; man(</span>
+                      <span class="s0">)),</span>
+                    <span class="s0">);},child: Text(</span>
+                      <span class="s1">&quot;MAN&quot;</span><span class="s0">,</span>
+                      <span class="s0">style: TextStyle(color: Colors.black,fontSize: </span><span class="s3">20</span><span class="s0">),</span>
+                    <span class="s0">),</span>
+                    <span class="s0">),</span>
+                  <span class="s0">),</span>
+
+
+
+
+                <span class="s0">],</span>
+              <span class="s0">),</span>
+            <span class="s0">),</span>
+
+
+
+            <span class="s0">Padding(</span>
+              <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.only(top: </span><span class="s3">100</span><span class="s0">),</span>
+              <span class="s0">child: PageView(</span>
+                <span class="s0">controller: _controller,</span>
+                <span class="s0">onPageChanged: (int page){</span>
+                  <span class="s0">setState(() {</span>
+                    <span class="s0">_currentPage=page;</span>
+                  <span class="s0">});</span>
+                <span class="s0">},</span>
+
+                <span class="s4">//controller: pageViewController,</span>
+                <span class="s0">scrollDirection: Axis.vertical,</span>
+                <span class="s0">children: [</span>
+                  <span class="s0">Column(</span>
+                    <span class="s0">children: [</span>
+                      <span class="s0">Container(</span>
+                          <span class="s0">height: </span><span class="s3">500</span><span class="s0">,</span>
+                          <span class="s0">width: </span><span class="s3">500</span><span class="s0">,</span>
+                          <span class="s0">alignment: Alignment.center,</span>
+                          <span class="s0">child: Image.asset(</span><span class="s1">'assets/images/image.jpeg'</span><span class="s0">)),</span>
+
+                    <span class="s0">],</span>
+                  <span class="s0">),</span>
+                  <span class="s0">Column(</span>
+                    <span class="s0">children: [</span>
+                      <span class="s0">Container(</span>
+                          <span class="s0">height: </span><span class="s3">400</span><span class="s0">,</span>
+                          <span class="s0">width: </span><span class="s3">250</span><span class="s0">,</span>
+                          <span class="s0">alignment: Alignment.center,</span>
+                          <span class="s0">child: Image.asset(</span><span class="s1">'assets/images/image.jpeg'</span><span class="s0">)),</span>
+
+                    <span class="s0">],</span>
+                  <span class="s0">),</span>
+                  <span class="s0">Column(</span>
+                    <span class="s0">children: [</span>
+                      <span class="s0">Container(</span>
+                          <span class="s0">height: </span><span class="s3">400</span><span class="s0">,</span>
+                          <span class="s0">width: </span><span class="s3">250</span><span class="s0">,</span>
+                          <span class="s0">alignment: Alignment.center,</span>
+                          <span class="s0">child: Image.asset(</span><span class="s1">'assets/images/image.jpeg'</span><span class="s0">)),</span>
+
+                    <span class="s0">],</span>
+                  <span class="s0">),</span>
+                  <span class="s0">Column(</span>
+                    <span class="s0">children: [</span>
+                      <span class="s0">Container(</span>
+                          <span class="s0">height: </span><span class="s3">400</span><span class="s0">,</span>
+                          <span class="s0">width: </span><span class="s3">250</span><span class="s0">,</span>
+                          <span class="s0">alignment: Alignment.center,</span>
+                          <span class="s0">child: Image.asset(</span><span class="s1">'assets/images/image.jpeg'</span><span class="s0">)),</span>
+
+                    <span class="s0">],</span>
+                  <span class="s0">),</span>
+
+                <span class="s0">],</span>
+
+
+              <span class="s0">),</span>
+
+            <span class="s0">),</span>
+            <span class="s0">Align(</span>
+                  <span class="s0">alignment: Alignment.bottomLeft,</span>
+                  <span class="s0">child: Padding(</span>
+                    <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.only(left: </span><span class="s3">300</span><span class="s0">,bottom: </span><span class="s3">150</span><span class="s0">),</span>
+                    <span class="s0">child: Row(</span>
+                      <span class="s0">children: [</span>
+                        <span class="s0">SmoothPageIndicator(</span>
+                          <span class="s0">axisDirection: Axis.vertical,</span>
+                          <span class="s0">controller: _controller,</span>
+                          <span class="s0">count: </span><span class="s3">4</span><span class="s0">,</span>
+                          <span class="s0">effect: SlideEffect(</span>
+                              <span class="s0">spacing:  </span><span class="s3">5</span><span class="s0">,</span>
+                              <span class="s0">radius:  </span><span class="s3">12</span><span class="s0">,</span>
+                              <span class="s0">dotWidth: </span><span class="s3">12</span><span class="s0">,</span>
+                              <span class="s0">dotHeight:  </span><span class="s3">12</span><span class="s0">,</span>
+                              <span class="s0">dotColor: Colors.black,</span>
+                              <span class="s0">paintStyle: PaintingStyle.stroke,</span>
+                              <span class="s0">strokeWidth:  </span><span class="s3">1</span><span class="s0">,</span>
+                              <span class="s0">activeDotColor: Colors.black),</span>
+                        <span class="s0">),</span>
+                      <span class="s0">],</span>
+                    <span class="s0">),</span>
+                  <span class="s0">),</span>
+                <span class="s0">),</span>
+
+
+            <span class="s0">Align(</span>
+              <span class="s0">alignment: Alignment.bottomCenter,</span>
+              <span class="s0">child: Container(</span>
+                <span class="s0">height: </span><span class="s3">60</span><span class="s0">,</span>
+                <span class="s0">color: Colors.white,</span>
+                <span class="s0">child: Padding(</span>
+                  <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.all(</span><span class="s3">8.0</span><span class="s0">),</span>
+                  <span class="s0">child: Row(</span>
+                    <span class="s0">mainAxisAlignment: MainAxisAlignment.spaceBetween,</span>
+                    <span class="s0">children: [</span>
+                      <span class="s0">IconButton(</span>
+                        <span class="s0">onPressed: () {</span>
+                          <span class="s0">Navigator.push(</span>
+                            <span class="s0">context,</span>
+                            <span class="s0">MaterialPageRoute(builder: (context) =&gt; search()),</span>
+                          <span class="s0">);</span>
+                        <span class="s0">},</span>
+                        <span class="s0">icon: Icon(Icons.search,color: Colors.black,),</span>
+                      <span class="s0">),</span>
+                      <span class="s0">IconButton(</span>
+                        <span class="s0">onPressed: () {</span>
+                          <span class="s0">Navigator.push(</span>
+                            <span class="s0">context,</span>
+                            <span class="s0">MaterialPageRoute(builder: (context) =&gt; logIn(</span>
+                              <span class="s0">isbackVisible: </span><span class="s2">true</span><span class="s0">,</span>
+                            <span class="s0">)),</span>
+                          <span class="s0">);</span>
+                        <span class="s0">},</span>
+                        <span class="s0">icon: Icon(Icons.login,color: Colors.black,</span>
+                        <span class="s0">),</span>
+                      <span class="s0">),</span>
+                      <span class="s0">IconButton(</span>
+                        <span class="s0">onPressed: (){</span>
+                          <span class="s0">Navigator.push(</span>
+                            <span class="s0">context,</span>
+                            <span class="s0">MaterialPageRoute(builder: (context) =&gt; profile()),</span>
+                          <span class="s0">);</span>
+                        <span class="s0">},</span>
+                        <span class="s0">icon: Icon(Icons.home_sharp,color: Colors.black,),</span>
+                      <span class="s0">),</span>
+                      <span class="s0">IconButton(</span>
+                        <span class="s0">onPressed: (){</span>
+                          <span class="s0">Navigator.push(</span>
+                            <span class="s0">context,</span>
+                            <span class="s0">MaterialPageRoute(builder: (context) =&gt; profile()),</span>
+                          <span class="s0">);</span>
+                        <span class="s0">},</span>
+                        <span class="s0">icon: Icon(Icons.account_box_rounded,color: Colors.black,),</span>
+                      <span class="s0">),</span>
+                      <span class="s0">IconButton(</span>
+                        <span class="s0">onPressed: () {</span>
+                          <span class="s0">Navigator.push(</span>
+                            <span class="s0">context,</span>
+                            <span class="s0">MaterialPageRoute(builder: (context) =&gt; basket()),</span>
+                          <span class="s0">);</span>
+                        <span class="s0">},</span>
+                        <span class="s0">icon: Icon(Icons.shopping_cart,color: Colors.black,),</span>
+                      <span class="s0">),</span>
+                    <span class="s0">],</span>
+                  <span class="s0">),</span>
+                <span class="s0">),</span>
+              <span class="s0">),</span>
+            <span class="s0">)</span>
+
+          <span class="s0">],</span>
+
+        <span class="s0">)</span>
+    <span class="s0">);</span>
+  <span class="s0">}</span>
+<span class="s0">}</span>
+</pre>
+</body>
+</html>

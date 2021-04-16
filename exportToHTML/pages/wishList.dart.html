@@ -1,0 +1,169 @@
+<html>
+<head>
+<title>wishList.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #080808;}
+.s1 { color: #067d17;}
+.s2 { color: #0033b3;}
+.s3 { color: #8c8c8c; font-style: italic;}
+.s4 { color: #1750eb;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+wishList.dart</font>
+</center></td></tr></table>
+<pre>
+<span class="s0">import </span><span class="s1">'package:aesthenics/services/firebase_services.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:aesthenics/widgets/image_swipe.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:cloud_firestore/cloud_firestore.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:flutter/material.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'productPage.dart'</span><span class="s0">;</span>
+
+<span class="s2">class </span><span class="s0">wishList </span><span class="s2">extends </span><span class="s0">StatelessWidget {</span>
+
+
+  <span class="s2">final </span><span class="s0">FirebaseServices _firebaseServices = FirebaseServices();</span>
+
+  <span class="s0">@override</span>
+  <span class="s0">Widget build(BuildContext context) {</span>
+    <span class="s2">return </span><span class="s0">Container(</span>
+      <span class="s0">child: Stack(</span>
+        <span class="s0">children: [</span>
+          <span class="s0">FutureBuilder&lt;QuerySnapshot&gt;(</span>
+            <span class="s0">future: _firebaseServices.usersRef</span>
+                <span class="s0">.doc(_firebaseServices.getUserId())</span>
+                <span class="s0">.collection(</span><span class="s1">&quot;Saved&quot;</span><span class="s0">)</span>
+                <span class="s0">.get(),</span>
+            <span class="s0">builder: (context, snapshot) {</span>
+              <span class="s2">if </span><span class="s0">(snapshot.hasError) {</span>
+                <span class="s2">return </span><span class="s0">Scaffold(</span>
+                  <span class="s0">body: Center(</span>
+                    <span class="s0">child: Text(</span><span class="s1">&quot;Error: </span><span class="s0">${snapshot.error}</span><span class="s1">&quot;</span><span class="s0">),</span>
+                  <span class="s0">),</span>
+                <span class="s0">);</span>
+              <span class="s0">}</span>
+
+              <span class="s3">// Collection Data ready to display</span>
+              <span class="s2">if </span><span class="s0">(snapshot.connectionState == ConnectionState.done) {</span>
+                <span class="s3">// Display the data inside a list view</span>
+                <span class="s2">return </span><span class="s0">ListView(</span>
+                  <span class="s0">padding: EdgeInsets.only(top: </span><span class="s4">108</span><span class="s0">,bottom: </span><span class="s4">24</span><span class="s0">,),</span>
+                  <span class="s0">children: snapshot.data.docs.map((document){</span>
+                    <span class="s2">return </span><span class="s0">GestureDetector(</span>
+                        <span class="s0">onTap: (){</span>
+                          <span class="s0">Navigator.push(</span>
+                            <span class="s0">context,</span>
+                            <span class="s0">MaterialPageRoute(builder: (context) =&gt; productPage(productId:document.id)),);</span>
+                        <span class="s0">},</span>
+                        <span class="s0">child: FutureBuilder(</span>
+                            <span class="s0">future: _firebaseServices.productsRef.doc(document.id).get(),</span>
+                            <span class="s0">builder: (context,productSnap) {</span>
+                              <span class="s2">if </span><span class="s0">(productSnap.hasError) {</span>
+                                <span class="s2">return </span><span class="s0">Container(</span>
+                                  <span class="s0">child: Center(</span>
+                                    <span class="s0">child: Text(</span><span class="s1">&quot;</span><span class="s0">${productSnap.error}</span><span class="s1">&quot;</span><span class="s0">),</span>
+                                  <span class="s0">),</span>
+                                <span class="s0">);</span>
+                              <span class="s0">}</span>
+                              <span class="s2">if </span><span class="s0">(snapshot.connectionState ==</span>
+                                  <span class="s0">ConnectionState.done) {</span>
+                                <span class="s0">Map _productMap = productSnap.data.data();</span>
+                                <span class="s2">return </span><span class="s0">Padding(</span>
+                                    <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.symmetric(</span>
+                                      <span class="s0">vertical: </span><span class="s4">16.0</span><span class="s0">,</span>
+                                      <span class="s0">horizontal: </span><span class="s4">24.0</span><span class="s0">,</span>
+                                    <span class="s0">),</span>
+                                    <span class="s0">child: Row(</span>
+                                      <span class="s0">mainAxisAlignment: MainAxisAlignment</span>
+                                          <span class="s0">.start,</span>
+                                      <span class="s0">children: [</span>
+                                        <span class="s0">Container(</span>
+                                          <span class="s0">width: </span><span class="s4">90</span><span class="s0">,</span>
+                                          <span class="s0">height: </span><span class="s4">90</span><span class="s0">,</span>
+                                          <span class="s0">child: ClipRRect(</span>
+                                            <span class="s0">borderRadius:</span>
+                                            <span class="s0">BorderRadius.circular(</span><span class="s4">8.0</span><span class="s0">),</span>
+                                            <span class="s0">child: Image.network(</span>
+                                              <span class="s1">&quot;</span><span class="s0">${_productMap[</span><span class="s1">'images'</span><span class="s0">][</span><span class="s4">0</span><span class="s0">]}</span><span class="s1">&quot;</span><span class="s0">,</span>
+                                              <span class="s0">fit: BoxFit.cover,),),),</span>
+                                        <span class="s0">Container(</span>
+                                          <span class="s0">padding: EdgeInsets.only(</span>
+                                            <span class="s0">left: </span><span class="s4">16.0</span><span class="s0">,</span>
+                                          <span class="s0">),</span>
+                                          <span class="s0">child: Column(</span>
+                                            <span class="s0">mainAxisAlignment: MainAxisAlignment</span>
+                                                <span class="s0">.start,</span>
+                                            <span class="s0">crossAxisAlignment: CrossAxisAlignment</span>
+                                                <span class="s0">.start,</span>
+                                            <span class="s0">children: [</span>
+                                              <span class="s0">Text(</span>
+                                                <span class="s1">&quot;</span><span class="s0">${_productMap[</span><span class="s1">'name'</span><span class="s0">]}</span><span class="s1">&quot;</span><span class="s0">,</span>
+                                                <span class="s0">style: TextStyle(</span>
+                                                    <span class="s0">fontSize: </span><span class="s4">18.0</span><span class="s0">,</span>
+                                                    <span class="s0">color: Colors.black,</span>
+                                                    <span class="s0">fontWeight: FontWeight</span>
+                                                        <span class="s0">.w600),</span>
+                                              <span class="s0">),</span>
+                                              <span class="s0">Padding(</span>
+                                                <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets</span>
+                                                    <span class="s0">.symmetric(</span>
+                                                  <span class="s0">vertical: </span><span class="s4">4.0</span><span class="s0">,</span>
+                                                <span class="s0">),</span>
+                                                <span class="s0">child: Text(</span>
+                                                  <span class="s1">&quot;</span><span class="s0">${_productMap[</span><span class="s1">'price'</span><span class="s0">]}</span><span class="s1">&quot;</span><span class="s0">,</span>
+                                                  <span class="s0">style: TextStyle(</span>
+                                                      <span class="s0">fontSize: </span><span class="s4">16.0</span><span class="s0">,</span>
+                                                      <span class="s0">color: Theme</span>
+                                                          <span class="s0">.of(context)</span>
+                                                          <span class="s0">.accentColor,</span>
+                                                      <span class="s0">fontWeight: FontWeight</span>
+                                                          <span class="s0">.w600),),),</span>
+                                              <span class="s0">Text(</span><span class="s1">&quot;Size - </span><span class="s0">${document</span>
+                                                  <span class="s0">.data()[</span><span class="s1">'size'</span><span class="s0">]}</span><span class="s1">&quot;</span><span class="s0">,</span>
+                                                <span class="s0">style: TextStyle(</span>
+                                                    <span class="s0">fontSize: </span><span class="s4">16.0</span><span class="s0">,</span>
+                                                    <span class="s0">color: Colors.black,</span>
+                                                    <span class="s0">fontWeight: FontWeight</span>
+                                                        <span class="s0">.w600),</span>
+                                              <span class="s0">),</span>
+                                            <span class="s0">],),),</span>
+                                      <span class="s0">],</span>
+                                    <span class="s0">)</span>
+                                <span class="s0">);</span>
+                              <span class="s0">}</span>
+                              <span class="s2">return </span><span class="s0">Container(</span>
+                                <span class="s0">child: Center(</span>
+                                  <span class="s0">child: CircularProgressIndicator(),</span>
+                                <span class="s0">),</span>
+                              <span class="s0">);</span>
+                            <span class="s0">})</span>
+
+                    <span class="s0">);</span>
+
+
+                  <span class="s0">}).toList(),</span>
+
+                <span class="s0">);</span>
+              <span class="s0">}</span>
+
+              <span class="s3">// Loading State</span>
+              <span class="s2">return </span><span class="s0">Scaffold(</span>
+                <span class="s0">body: Center(</span>
+                  <span class="s0">child: CircularProgressIndicator(),</span>
+                <span class="s0">),</span>
+              <span class="s0">);</span>
+            <span class="s0">},</span>
+          <span class="s0">),</span>
+
+        <span class="s0">],</span>
+      <span class="s0">),</span>
+    <span class="s0">);</span>
+  <span class="s0">}</span>
+<span class="s0">}</span>
+</pre>
+</body>
+</html>

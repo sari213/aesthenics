@@ -1,0 +1,124 @@
+<html>
+<head>
+<title>sale.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #080808;}
+.s1 { color: #067d17;}
+.s2 { color: #0033b3;}
+.s3 { color: #1750eb;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+sale.dart</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">'package:aesthenics/pages/productPage.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:cloud_firestore/cloud_firestore.dart'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">'package:flutter/material.dart'</span><span class="s0">;</span>
+<span class="s2">class </span><span class="s0">sale </span><span class="s2">extends </span><span class="s0">StatefulWidget {</span>
+  <span class="s0">@override</span>
+  <span class="s0">_saleState createState() =&gt; _saleState();</span>
+<span class="s0">}</span>
+
+<span class="s2">class </span><span class="s0">_saleState </span><span class="s2">extends </span><span class="s0">State&lt;sale&gt; {</span>
+  <span class="s2">final </span><span class="s0">CollectionReference _productsRef =FirebaseFirestore.instance.collection(</span><span class="s1">&quot;Products&quot;</span><span class="s0">);</span>
+  <span class="s0">@override</span>
+  <span class="s0">Widget build(BuildContext context) {</span>
+    <span class="s2">return </span><span class="s0">Container(</span>
+      <span class="s0">child: Stack(</span>
+        <span class="s0">children: [</span>
+          <span class="s0">FutureBuilder&lt;QuerySnapshot&gt;(</span>
+            <span class="s0">future: _productsRef.get(),</span>
+            <span class="s0">builder: (context, snapshot){</span>
+              <span class="s2">if</span><span class="s0">(snapshot.hasError){</span>
+                <span class="s2">return </span><span class="s0">SafeArea(</span>
+                  <span class="s0">child: Scaffold(</span>
+                    <span class="s0">body: Center(</span>
+                      <span class="s0">child: Text(</span><span class="s1">'SomethingWentWrong'</span><span class="s0">),</span>
+                    <span class="s0">),</span>
+                  <span class="s0">),</span>
+                <span class="s0">);</span>
+
+
+              <span class="s0">}</span>
+              <span class="s2">if </span><span class="s0">(snapshot.connectionState == ConnectionState.done) {</span>
+                <span class="s2">return </span><span class="s0">Scaffold(</span>
+                  <span class="s0">body: Center(</span>
+                    <span class="s0">child: ListView(</span>
+                      <span class="s0">padding: EdgeInsets.only(top: </span><span class="s3">108</span><span class="s0">,bottom: </span><span class="s3">24</span><span class="s0">,),</span>
+                      <span class="s0">children: snapshot.data.docs.map((document){</span>
+                        <span class="s2">return </span><span class="s0">Center(</span>
+                          <span class="s0">child: GestureDetector(</span>
+                            <span class="s0">onTap: (){</span>
+                              <span class="s0">Navigator.push(</span>
+                                  <span class="s0">context,</span>
+                                    <span class="s0">MaterialPageRoute(builder: (context) =&gt; productPage(productId:document.id)),);</span>
+
+
+                            <span class="s0">},</span>
+                            <span class="s0">child: Container(</span>
+                                <span class="s0">decoration: BoxDecoration(</span>
+                                    <span class="s0">borderRadius: BorderRadius.circular(</span><span class="s3">12.0</span><span class="s0">)</span>
+                                <span class="s0">),</span>
+                                <span class="s0">height: </span><span class="s3">250</span><span class="s0">,</span>
+
+
+                                <span class="s0">margin: EdgeInsets.symmetric(</span>
+                                  <span class="s0">vertical: </span><span class="s3">12.0</span><span class="s0">,</span>
+                                  <span class="s0">horizontal: </span><span class="s3">24.0</span><span class="s0">,</span>
+                                <span class="s0">),</span>
+
+
+                                <span class="s0">child:Stack(</span>
+                                  <span class="s0">children: [</span>
+                                    <span class="s0">ClipRRect(</span>
+                                        <span class="s0">borderRadius: BorderRadius.circular(</span><span class="s3">12.0</span><span class="s0">),</span>
+                                        <span class="s0">child: Image.network(</span><span class="s1">&quot;</span><span class="s0">${document.data()[</span><span class="s1">'images'</span><span class="s0">][</span><span class="s3">0</span><span class="s0">]}</span><span class="s1">&quot;</span><span class="s0">,fit: BoxFit.cover,)),</span>
+                                    <span class="s0">Positioned(</span>
+                                      <span class="s0">bottom:</span><span class="s3">0</span><span class="s0">,</span>
+                                      <span class="s0">child: Column(</span>
+                                        <span class="s0">children: [</span>
+
+                                          <span class="s0">Text(document.data()[</span><span class="s1">'name'</span><span class="s0">],style: TextStyle(</span>
+                                              <span class="s0">color: Colors.black45</span>
+                                          <span class="s0">),),</span>
+                                          <span class="s0">Text(document.data()[</span><span class="s1">'price'</span><span class="s0">],style: TextStyle(</span>
+                                              <span class="s0">fontWeight: FontWeight.bold</span>
+                                          <span class="s0">),),</span>
+
+                                        <span class="s0">],</span>
+                                      <span class="s0">),</span>
+                                    <span class="s0">)</span>
+                                  <span class="s0">],</span>
+
+                                <span class="s0">)</span>
+
+
+                            <span class="s0">),</span>
+                          <span class="s0">),</span>
+                        <span class="s0">);</span>
+
+                      <span class="s0">} ).toList(),</span>
+                    <span class="s0">),</span>
+                  <span class="s0">)</span>
+                <span class="s0">);</span>
+              <span class="s0">}</span>
+              <span class="s2">return </span><span class="s0">Scaffold(</span>
+                <span class="s0">body: Center(</span>
+                  <span class="s0">child: CircularProgressIndicator(),</span>
+                <span class="s0">),</span>
+              <span class="s0">);</span>
+
+            <span class="s0">}</span>
+          <span class="s0">)</span>
+        <span class="s0">],</span>
+      <span class="s0">),</span>
+    <span class="s0">);</span>
+  <span class="s0">}</span>
+<span class="s0">}</span>
+</pre>
+</body>
+</html>
